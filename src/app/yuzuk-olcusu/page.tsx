@@ -91,7 +91,7 @@ export default function RingSizeCalculatorPage() {
             </ol>
             <button
               onClick={() => window.print()}
-              className="mt-4 flex items-center gap-2 bg-amber-700 hover:bg-amber-800 text-white text-sm font-medium px-5 py-2.5 rounded-full"
+              className="mt-4 flex items-center gap-2 bg-black hover:bg-neutral-800 text-amber-400 text-sm font-medium px-5 py-2.5 rounded-full"
             >
               <Printer size={16} /> Yazdır
             </button>

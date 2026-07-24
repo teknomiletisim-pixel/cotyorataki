@@ -56,7 +56,7 @@ export default function KargomNeredePage() {
       {orders.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-neutral-500 mb-6">Henüz bir siparişiniz bulunmuyor.</p>
-          <Link href="/katalog" className="bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-full font-medium">
+          <Link href="/katalog" className="bg-black hover:bg-neutral-800 text-amber-400 px-6 py-3 rounded-full font-medium">
             Kataloğa Git
           </Link>
         </div>

@@ -28,7 +28,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-100 print:hidden">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         <Link href="/" className="shrink-0">
-          <span className="font-serif text-2xl tracking-[0.2em] text-amber-900">
+          <span className="font-serif text-2xl tracking-[0.2em] text-black">
             COTYORA <span className="text-amber-500">TAKI</span>
           </span>
         </Link>

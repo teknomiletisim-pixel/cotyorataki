@@ -121,7 +121,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium py-3 rounded-full"
+          className="w-full bg-black hover:bg-neutral-800 disabled:opacity-60 text-amber-400 font-medium py-3 rounded-full"
         >
           {loading ? "Hesap oluşturuluyor..." : "Hesap Oluştur"}
         </button>

@@ -181,7 +181,7 @@ function AccountContent() {
           <button
             type="submit"
             disabled={saving}
-            className="sm:col-span-2 bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium py-3 rounded-full mt-2"
+            className="sm:col-span-2 bg-black hover:bg-neutral-800 disabled:opacity-60 text-amber-400 font-medium py-3 rounded-full mt-2"
           >
             {saving ? "Kaydediliyor..." : "Bilgileri Kaydet"}
           </button>

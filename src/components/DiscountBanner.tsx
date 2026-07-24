@@ -57,7 +57,7 @@ export default function DiscountBanner() {
           </h3>
           <button
             onClick={handleClose}
-            className="mt-4 bg-amber-700 hover:bg-amber-800 text-white text-sm font-medium px-6 py-2.5 rounded-full"
+            className="mt-4 bg-black hover:bg-neutral-800 text-amber-400 text-sm font-medium px-6 py-2.5 rounded-full"
           >
             Alışverişe Başla
           </button>

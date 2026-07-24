@@ -151,7 +151,7 @@ export default function CheckoutPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium py-3 rounded-full mt-4"
+          className="w-full bg-black hover:bg-neutral-800 disabled:opacity-60 text-amber-400 font-medium py-3 rounded-full mt-4"
         >
           {submitting ? "Yönlendiriliyor..." : "Kredi Kartı ile Ödemeye Geç"}
         </button>

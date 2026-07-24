@@ -141,7 +141,7 @@ export default function ProductDetailPage() {
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
           <button
             onClick={handleAddToCart}
-            className="flex-1 bg-amber-700 hover:bg-amber-800 text-white font-medium py-3 rounded-full transition-colors flex items-center justify-center gap-2"
+            className="flex-1 bg-black hover:bg-neutral-800 text-amber-400 font-medium py-3 rounded-full transition-colors flex items-center justify-center gap-2"
           >
             {added ? (
               <>
@@ -153,7 +153,7 @@ export default function ProductDetailPage() {
           </button>
           <button
             onClick={() => router.push("/sepetim")}
-            className="flex-1 border border-amber-700 text-amber-700 hover:bg-amber-50 font-medium py-3 rounded-full transition-colors"
+            className="flex-1 border-2 border-black text-black hover:bg-black hover:text-amber-400 font-medium py-3 rounded-full transition-colors"
           >
             Sepete Git
           </button>

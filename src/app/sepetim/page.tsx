@@ -25,7 +25,7 @@ export default function CartPage() {
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 className="font-serif text-2xl text-neutral-900 mb-3">Sepetiniz Boş</h1>
         <p className="text-neutral-500 mb-6">Kataloğumuza göz atarak beğendiğiniz ürünleri sepetinize ekleyebilirsiniz.</p>
-        <Link href="/katalog" className="bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-full font-medium">
+        <Link href="/katalog" className="bg-black hover:bg-neutral-800 text-amber-400 px-6 py-3 rounded-full font-medium">
           Kataloğa Git
         </Link>
       </div>
@@ -93,7 +93,7 @@ export default function CartPage() {
 
       <Link
         href="/siparis-tamamla"
-        className="mt-6 block text-center bg-amber-700 hover:bg-amber-800 text-white font-medium py-3 rounded-full transition-colors"
+        className="mt-6 block text-center bg-black hover:bg-neutral-800 text-amber-400 font-medium py-3 rounded-full transition-colors"
       >
         Siparişi Tamamla
       </Link>

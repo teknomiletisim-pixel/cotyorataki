@@ -17,7 +17,7 @@ export default function FavoritesPage() {
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <h1 className="font-serif text-2xl text-neutral-900 mb-3">Favori Listeniz Boş</h1>
         <p className="text-neutral-500 mb-6">Beğendiğiniz ürünlerin üzerindeki kalp ikonuna tıklayarak favorilerinize ekleyebilirsiniz.</p>
-        <Link href="/katalog" className="bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-full font-medium">
+        <Link href="/katalog" className="bg-black hover:bg-neutral-800 text-amber-400 px-6 py-3 rounded-full font-medium">
           Kataloğa Git
         </Link>
       </div>
