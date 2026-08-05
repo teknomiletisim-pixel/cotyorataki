@@ -16,7 +16,8 @@ import {
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
-  passwordHash: text("password_hash").notNull(),
+  passwordHash: text("password_hash"), // Google ile giriş yapan kullanıcılarda boş olabilir
+  googleId: varchar("google_id", { length: 100 }), // Google ile giriş yapan kullanıcının Google hesap ID'si
   firstName: varchar("first_name", { length: 100 }).default(""),
   lastName: varchar("last_name", { length: 100 }).default(""),
   phone: varchar("phone", { length: 30 }).default(""),

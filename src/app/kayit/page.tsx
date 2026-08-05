@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import GoogleSignInButton from "@/components/GoogleSignInButton";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -126,6 +127,14 @@ export default function RegisterPage() {
           {loading ? "Hesap oluşturuluyor..." : "Hesap Oluştur"}
         </button>
       </form>
+
+      <div className="flex items-center gap-3 my-6">
+        <div className="flex-1 h-px bg-neutral-200" />
+        <span className="text-xs text-neutral-400">veya</span>
+        <div className="flex-1 h-px bg-neutral-200" />
+      </div>
+
+      <GoogleSignInButton callbackUrl="/hesabim" />
 
       <p className="text-sm text-neutral-500 mt-6 text-center">
         Zaten hesabınız var mı?{" "}

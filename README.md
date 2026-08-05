@@ -91,7 +91,34 @@ servise üye olmanıza gerek yok.
 Bu değerleri girmezseniz site normal çalışmaya devam eder, sadece e-posta
 bildirimleri gönderilmez.
 
-## 7) Altın fiyatı mantığı
+## 7) Google ile giriş (opsiyonel)
+
+Müşterilerinizin e-posta/şifre yerine Google hesaplarıyla tek tıkla giriş
+yapabilmesi için:
+
+1. [console.cloud.google.com](https://console.cloud.google.com) adresine
+   gidin, yeni bir proje oluşturun (veya mevcut birini seçin).
+2. Sol menüden **APIs & Services → OAuth consent screen**'e gidin, "External"
+   seçip uygulama adı olarak "COTYORA TAKI" girerek kaydedin.
+3. **APIs & Services → Credentials → Create Credentials → OAuth client ID**
+   seçin, uygulama türü olarak **Web application** seçin.
+4. **Authorized redirect URIs** alanına şunları ekleyin:
+   - `http://localhost:3000/api/auth/callback/google` (yerel test için)
+   - `https://cotyorataki.com/api/auth/callback/google` (canlı site için)
+5. Oluşan **Client ID** ve **Client Secret**'i `.env.local` dosyanıza girin:
+   ```
+   GOOGLE_CLIENT_ID=...
+   GOOGLE_CLIENT_SECRET=...
+   ```
+
+Bu değerleri girmezseniz site normal çalışır, sadece "Google ile Devam Et"
+butonu görünmez. Girdikten sonra Giriş ve Kayıt sayfalarında otomatik olarak
+belirir.
+
+**Not:** Kendi admin e-postanızla (`ADMIN_EMAIL`) Google üzerinden giriş
+yaparsanız da otomatik olarak Yönetim Paneli'ne yönlendirilirsiniz.
+
+## 8) Altın fiyatı mantığı
 
 Her ürünün fiyatı şu formülle hesaplanır:
 
@@ -102,13 +129,13 @@ fiyat = (ürünün gram altın miktarı × güncel gram altın fiyatı) + işçi
 Yönetim Paneli > Altın Fiyatı sayfasından güncel gram altın fiyatını girdiğinizde,
 tüm ürünlerin fiyatı otomatik olarak orantılı şekilde güncellenir.
 
-## 8) Özel gün indirimi
+## 9) Özel gün indirimi
 
 src/lib/pricing.ts dosyasındaki SPECIAL_DAYS listesine tarihleri girerek
 (Sevgililer Günü, Anneler Günü, Babalar Günü gibi) hangi günlerde otomatik
 %10 indirim ve karşılama ekranının çıkacağını belirleyebilirsiniz.
 
-## 9) Yapı özeti
+## 10) Yapı özeti
 
 ```
 src/
@@ -124,7 +151,7 @@ scripts/seed.ts        → Örnek veri + admin hesabı oluşturma script'i
 drizzle/               → Veritabanı migrasyon dosyaları
 ```
 
-## 10) Canlıya alma (deploy)
+## 11) Canlıya alma (deploy)
 
 Bu proje Abacus.AI (veya Vercel, Railway gibi herhangi bir Next.js destekleyen platform)
 üzerine deploy edilebilir. Deploy ederken:
@@ -137,7 +164,7 @@ Bu proje Abacus.AI (veya Vercel, Railway gibi herhangi bir Next.js destekleyen p
 4. NEXT_PUBLIC_APP_URL değerini gerçek domaininizle güncelleyin.
 5. Lemonsqueezy webhook URL'sini gerçek domaininizle güncelleyin.
 
-## 11) Bilinen sınırlamalar / sıradaki adımlar
+## 12) Bilinen sınırlamalar / sıradaki adımlar
 
 - Ürün fotoğrafları şu an URL olarak eklenir; doğrudan dosya yükleme (ör. bir
   görsel depolama servisiyle) bir sonraki geliştirme adımı olabilir.

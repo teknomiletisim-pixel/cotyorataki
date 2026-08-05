@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import GoogleSignInButton from "@/components/GoogleSignInButton";
 
 export default function LoginPage() {
   return (
@@ -91,6 +92,14 @@ function LoginForm() {
           {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
         </button>
       </form>
+
+      <div className="flex items-center gap-3 my-6">
+        <div className="flex-1 h-px bg-neutral-200" />
+        <span className="text-xs text-neutral-400">veya</span>
+        <div className="flex-1 h-px bg-neutral-200" />
+      </div>
+
+      <GoogleSignInButton callbackUrl={callbackUrl} />
 
       <p className="text-sm text-neutral-500 mt-6 text-center">
         Hesabınız yok mu?{" "}
