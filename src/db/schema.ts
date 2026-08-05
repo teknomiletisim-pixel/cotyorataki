@@ -124,3 +124,30 @@ export const serviceRequests = pgTable("service_requests", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Özel Tasarım talepleri: müşteri fotoğraf/video + açıklama ile kendi
+// hayalindeki tasarımı anlatır, admin panelinden görüntülenip yanıtlanır.
+export const CUSTOM_DESIGN_STATUSES = [
+  "Beklemede",
+  "İnceleniyor",
+  "Teklif Verildi",
+  "Tamamlandı",
+  "Reddedildi",
+] as const;
+
+export const customDesignRequests = pgTable("custom_design_requests", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id), // giriş yapmışsa doldurulur
+  name: varchar("name", { length: 150 }).notNull(),
+  phone: varchar("phone", { length: 30 }).notNull(),
+  description: text("description").notNull(),
+  // Küçük görsel/video dosyaları base64 olarak burada tutulur (harici depolama
+  // servisi kurulana kadar geçici bir çözüm; her dosya makul boyutla sınırlıdır).
+  media: jsonb("media")
+    .$type<{ type: "image" | "video"; dataUrl: string; filename: string }[]>()
+    .notNull()
+    .default([]),
+  status: varchar("status", { length: 20 }).notNull().default("Beklemede"),
+  adminNote: text("admin_note"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+

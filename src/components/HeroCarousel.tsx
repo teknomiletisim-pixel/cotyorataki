@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { Gem, ShieldCheck, Truck } from "lucide-react";
 import { Product, SpecialDay } from "@/lib/types";
 
 interface Slide {
@@ -13,6 +14,12 @@ interface Slide {
 const AUTO_ADVANCE_MS = 10000;
 const DEFAULT_SPECIAL_DAY_IMAGE =
   "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=1200&q=80";
+
+const SIDE_FEATURES = [
+  { icon: Gem, label: "ÖZEL\nTASARIM", href: "/ozel-tasarim" },
+  { icon: ShieldCheck, label: "GÜVENLİ\nALIŞVERİŞ", href: null },
+  { icon: Truck, label: "ÜCRETSİZ\nKARGO", href: null },
+];
 
 export default function HeroCarousel({
   products,
@@ -40,7 +47,6 @@ export default function HeroCarousel({
 
   const [index, setIndex] = useState(0);
   const dragStartX = useRef<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -69,13 +75,14 @@ export default function HeroCarousel({
   }
 
   if (slides.length === 0) {
-    return null;
+    return (
+      <div className="w-full aspect-[4/5] sm:aspect-[21/9] bg-gradient-to-br from-neutral-950 via-black to-neutral-900" />
+    );
   }
 
   return (
     <div
-      ref={containerRef}
-      className="relative w-full aspect-[4/5] sm:aspect-[16/9] overflow-hidden select-none bg-black"
+      className="relative w-full aspect-[4/5] sm:aspect-[21/9] overflow-hidden select-none bg-black"
       onMouseDown={(e) => handleDragStart(e.clientX)}
       onMouseUp={(e) => handleDragEnd(e.clientX)}
       onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
@@ -91,40 +98,44 @@ export default function HeroCarousel({
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slide.image})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40 sm:hidden" />
 
-          <div className="relative h-full flex flex-col items-center justify-end sm:justify-center text-center px-6 pb-16 sm:pb-0">
+          <div className="relative h-full flex flex-col justify-end sm:justify-center items-center sm:items-start text-center sm:text-left px-6 sm:px-14 pb-16 sm:pb-0 max-w-3xl">
             {slide.isSpecialDay && activeSpecialDay ? (
               <>
-                <p className="text-amber-400 tracking-[0.25em] text-xs sm:text-sm font-medium mb-3">
-                  ÖZEL GÜN
+                <p className="text-amber-400 tracking-[0.3em] text-xs sm:text-sm font-medium mb-4">
+                  · ÖZEL GÜN
                 </p>
-                <h2 className="font-serif text-2xl sm:text-4xl text-white max-w-2xl uppercase leading-snug">
+                <h2 className="font-serif text-3xl sm:text-5xl text-white uppercase leading-tight">
                   {activeSpecialDay.bannerMessage}
                 </h2>
                 <Link
                   href="/katalog"
-                  className="mt-6 inline-block bg-amber-400 hover:bg-amber-300 text-black px-8 py-3 rounded-full font-semibold transition-colors"
+                  className="mt-8 inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-black px-8 py-3.5 rounded-sm font-semibold tracking-wide text-sm transition-colors"
                 >
-                  Hemen Alışverişe Başla
+                  HEMEN ALIŞVERİŞE BAŞLA →
                 </Link>
               </>
             ) : (
               <>
                 <p className="text-amber-400 tracking-[0.3em] text-xs sm:text-sm font-medium mb-4">
-                  EL İŞÇİLİĞİ · ÖZEL TASARIM
+                  · COTYORA TAKI
                 </p>
-                <h1 className="font-serif text-4xl sm:text-6xl text-white mb-4 tracking-wide">
-                  COTYORA TAKI
+                <h1 className="font-serif text-4xl sm:text-6xl text-white leading-[1.1] uppercase">
+                  Zarafeti Geleceğe
+                  <br />
+                  Taşıyoruz
                 </h1>
-                <p className="text-neutral-200 max-w-xl mb-8 hidden sm:block">
-                  Sizin için özel olarak tasarlanan ve üretilen, zamana meydan okuyan takılar.
+                <p className="text-neutral-300 max-w-md mt-5 hidden sm:block">
+                  Geleneksel ustalığı, modern tasarım anlayışıyla buluşturuyoruz.
+                  Her parça, senin hikayeni anlatır.
                 </p>
                 <Link
                   href="/katalog"
-                  className="inline-block bg-amber-400 hover:bg-amber-300 text-black px-8 py-3 rounded-full font-semibold transition-colors"
+                  className="mt-8 inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-black px-8 py-3.5 rounded-sm font-semibold tracking-wide text-sm transition-colors"
                 >
-                  Kataloğu Keşfet
+                  KOLEKSİYONU KEŞFET →
                 </Link>
               </>
             )}
@@ -132,35 +143,39 @@ export default function HeroCarousel({
         </div>
       ))}
 
-      {/* Nokta göstergeleri */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+      {/* Sağ üstte sabit özellik ikonları (masaüstü) */}
+      <div className="hidden lg:flex flex-col gap-6 absolute right-8 top-1/2 -translate-y-1/2 z-10">
+        {SIDE_FEATURES.map(({ icon: Icon, label, href }) => {
+          const content = (
+            <div className="flex flex-col items-center gap-1.5 text-white/70 hover:text-amber-400 transition-colors cursor-pointer">
+              <Icon size={18} />
+              <span className="text-[9px] tracking-widest text-center leading-tight whitespace-pre-line">
+                {label}
+              </span>
+            </div>
+          );
+          return href ? (
+            <Link key={label} href={href}>
+              {content}
+            </Link>
+          ) : (
+            <div key={label}>{content}</div>
+          );
+        })}
+      </div>
+
+      {/* Slayt sayacı (01 — 02 — 03) */}
+      <div className="absolute bottom-6 left-6 sm:left-14 z-10 flex items-center gap-2 text-white/60 text-xs tracking-widest">
         {slides.map((slide, i) => (
           <button
             key={slide.key}
             onClick={() => goTo(i)}
-            aria-label={`${i + 1}. slayda git`}
-            className={`h-1.5 rounded-full transition-all ${
-              i === index ? "w-6 bg-amber-400" : "w-1.5 bg-white/50"
-            }`}
-          />
+            className={`transition-colors ${i === index ? "text-amber-400" : "hover:text-white"}`}
+          >
+            {String(i + 1).padStart(2, "0")}
+          </button>
         ))}
       </div>
-
-      {/* Sol/sağ ok butonları (masaüstünde daha görünür) */}
-      <button
-        onClick={() => goTo(index - 1)}
-        aria-label="Önceki"
-        className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur"
-      >
-        ‹
-      </button>
-      <button
-        onClick={() => goTo(index + 1)}
-        aria-label="Sonraki"
-        className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur"
-      >
-        ›
-      </button>
     </div>
   );
 }

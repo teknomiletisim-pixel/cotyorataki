@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { LayoutDashboard, Package, Coins, LogOut, Sparkles, MessageSquareWarning } from "lucide-react";
+import { LayoutDashboard, Package, Coins, LogOut, Sparkles, MessageSquareWarning, Gem } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/admin/siparisler", label: "Siparişler", icon: LayoutDashboard },
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "/admin/altin-fiyati", label: "Altın Fiyatı", icon: Coins },
   { href: "/admin/ozel-gunler", label: "Özel Günler", icon: Sparkles },
   { href: "/admin/talepler", label: "Değişim/İade Talepleri", icon: MessageSquareWarning },
+  { href: "/admin/ozel-tasarim-talepleri", label: "Özel Tasarım Talepleri", icon: Gem },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
