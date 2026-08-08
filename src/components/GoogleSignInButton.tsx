@@ -49,7 +49,7 @@ export default function GoogleSignInButton({ callbackUrl }: { callbackUrl: strin
           callbackUrl: `/giris-yonlendir?callbackUrl=${encodeURIComponent(callbackUrl)}`,
         })
       }
-      className="w-full flex items-center justify-center gap-3 border border-neutral-200 hover:bg-neutral-50 text-neutral-700 font-medium py-3 rounded-full transition-colors"
+      className="w-full flex items-center justify-center gap-3 border border-white/15 hover:bg-neutral-950 text-neutral-300 font-medium py-3 rounded-full transition-colors"
     >
       <GoogleLogo />
       Google ile Devam Et

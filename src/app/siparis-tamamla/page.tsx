@@ -92,57 +92,57 @@ export default function CheckoutPage() {
   if (cart.length === 0) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <p className="text-neutral-500">Sepetiniz boş, sipariş tamamlanamaz.</p>
+        <p className="text-neutral-400">Sepetiniz boş, sipariş tamamlanamaz.</p>
       </div>
     );
   }
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-8">Siparişi Tamamla</h1>
+      <h1 className="font-serif text-3xl text-white mb-8">Siparişi Tamamla</h1>
 
-      <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-8 flex items-center justify-between">
-        <span className="text-neutral-700 font-medium">Ödenecek Tutar</span>
-        <span className="text-2xl font-semibold text-neutral-900">{formatTRY(total)}</span>
+      <div className="bg-amber-400/10 border border-amber-400/20 rounded-xl p-4 mb-8 flex items-center justify-between">
+        <span className="text-neutral-300 font-medium">Ödenecek Tutar</span>
+        <span className="text-2xl font-semibold text-white">{formatTRY(total)}</span>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Ad Soyad</label>
+          <label className="text-sm text-neutral-400 block mb-1">Ad Soyad</label>
           <input
             required
             value={form.fullName}
             onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Telefon</label>
+          <label className="text-sm text-neutral-400 block mb-1">Telefon</label>
           <input
             required
             value={form.phone}
             onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Teslimat Adresi</label>
+          <label className="text-sm text-neutral-400 block mb-1">Teslimat Adresi</label>
           <textarea
             required
             rows={3}
             value={form.address}
             onChange={(e) => setForm((f) => ({ ...f, address: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Tercih Edilen Teslimat Tarihi</label>
+          <label className="text-sm text-neutral-400 block mb-1">Tercih Edilen Teslimat Tarihi</label>
           <input
             type="date"
             required
             value={form.deliveryDate}
             onChange={(e) => setForm((f) => ({ ...f, deliveryDate: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
 

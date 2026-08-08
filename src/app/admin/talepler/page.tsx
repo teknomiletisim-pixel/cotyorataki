@@ -57,27 +57,27 @@ export default function AdminServiceRequestsPage() {
     load();
   }
 
-  if (loading) return <p className="text-neutral-500">Yükleniyor...</p>;
+  if (loading) return <p className="text-neutral-400">Yükleniyor...</p>;
 
   return (
     <div>
-      <h1 className="font-serif text-2xl text-neutral-900 mb-2">Değişim / İade / Garanti Talepleri</h1>
-      <p className="text-sm text-neutral-500 mb-6">
+      <h1 className="font-serif text-2xl text-white mb-2">Değişim / İade / Garanti Talepleri</h1>
+      <p className="text-sm text-neutral-400 mb-6">
         Durumu değiştirdiğinizde müşteriye otomatik e-posta bildirimi gönderilir.
       </p>
 
       {requests.length === 0 ? (
-        <p className="text-neutral-500">Henüz talep bulunmuyor.</p>
+        <p className="text-neutral-400">Henüz talep bulunmuyor.</p>
       ) : (
         <div className="space-y-4">
           {requests.map((r) => (
-            <div key={r.id} className="bg-white border border-neutral-100 rounded-xl p-5">
+            <div key={r.id} className="bg-neutral-900 border border-white/10 rounded-xl p-5">
               <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
                 <div>
-                  <p className="font-medium text-neutral-800">
+                  <p className="font-medium text-neutral-100">
                     Sipariş #{r.orderId} · {TYPE_LABELS[r.type] ?? r.type}
                   </p>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-xs text-neutral-400">
                     {r.customerName} · {r.customerEmail}
                     {r.contactPhone && ` · ${r.contactPhone}`}
                   </p>
@@ -85,7 +85,7 @@ export default function AdminServiceRequestsPage() {
                 <select
                   value={r.status}
                   onChange={(e) => updateStatus(r.id, e.target.value)}
-                  className="border border-neutral-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-amber-400"
+                  className="border border-white/15 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-amber-400"
                 >
                   {STATUS_OPTIONS.map((s) => (
                     <option key={s} value={s}>
@@ -95,18 +95,18 @@ export default function AdminServiceRequestsPage() {
                 </select>
               </div>
 
-              <p className="text-sm text-neutral-600 border-t border-neutral-100 pt-3 mt-1">{r.reason}</p>
+              <p className="text-sm text-neutral-400 border-t border-white/10 pt-3 mt-1">{r.reason}</p>
 
               <div className="mt-3 flex gap-2">
                 <input
                   value={noteDrafts[r.id] ?? r.adminNote ?? ""}
                   onChange={(e) => setNoteDrafts((d) => ({ ...d, [r.id]: e.target.value }))}
                   placeholder="Müşteriye görünecek not ekleyin (opsiyonel)..."
-                  className="flex-1 border border-neutral-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-amber-400"
+                  className="flex-1 border border-white/15 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-amber-400"
                 />
                 <button
                   onClick={() => saveNote(r.id)}
-                  className="text-sm bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-4 py-1.5 rounded-lg"
+                  className="text-sm bg-neutral-800 hover:bg-neutral-700 text-neutral-300 px-4 py-1.5 rounded-lg"
                 >
                   Notu Kaydet
                 </button>

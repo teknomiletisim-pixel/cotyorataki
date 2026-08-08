@@ -101,15 +101,15 @@ function AccountContent() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-8">
+      <h1 className="font-serif text-3xl text-white mb-8">
         Merhaba{account.firstName ? `, ${account.firstName}` : ""}
       </h1>
 
-      <div className="flex gap-6 border-b border-neutral-200 mb-8">
+      <div className="flex gap-6 border-b border-white/15 mb-8">
         <button
           onClick={() => setTab("bilgiler")}
           className={`pb-3 text-sm font-medium border-b-2 ${
-            tab === "bilgiler" ? "border-amber-600 text-amber-700" : "border-transparent text-neutral-500"
+            tab === "bilgiler" ? "border-amber-600 text-amber-400" : "border-transparent text-neutral-400"
           }`}
         >
           Hesap Bilgilerim
@@ -117,7 +117,7 @@ function AccountContent() {
         <button
           onClick={() => setTab("siparisler")}
           className={`pb-3 text-sm font-medium border-b-2 ${
-            tab === "siparisler" ? "border-amber-600 text-amber-700" : "border-transparent text-neutral-500"
+            tab === "siparisler" ? "border-amber-600 text-amber-400" : "border-transparent text-neutral-400"
           }`}
         >
           Siparişlerim
@@ -127,55 +127,55 @@ function AccountContent() {
       {tab === "bilgiler" ? (
         <form onSubmit={handleSave} className="grid sm:grid-cols-2 gap-4 max-w-xl">
           <div>
-            <label className="text-sm text-neutral-600 block mb-1">Ad</label>
+            <label className="text-sm text-neutral-400 block mb-1">Ad</label>
             <input
               value={account.firstName}
               onChange={(e) => setAccount((a) => ({ ...a, firstName: e.target.value }))}
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
           </div>
           <div>
-            <label className="text-sm text-neutral-600 block mb-1">Soyad</label>
+            <label className="text-sm text-neutral-400 block mb-1">Soyad</label>
             <input
               value={account.lastName}
               onChange={(e) => setAccount((a) => ({ ...a, lastName: e.target.value }))}
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
           </div>
           <div className="sm:col-span-2">
-            <label className="text-sm text-neutral-600 block mb-1">E-posta</label>
+            <label className="text-sm text-neutral-400 block mb-1">E-posta</label>
             <input
               type="email"
               value={account.email}
               disabled
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm bg-neutral-50 text-neutral-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm bg-neutral-950 text-neutral-400"
             />
           </div>
           <div>
-            <label className="text-sm text-neutral-600 block mb-1">Telefon</label>
+            <label className="text-sm text-neutral-400 block mb-1">Telefon</label>
             <input
               value={account.phone}
               onChange={(e) => setAccount((a) => ({ ...a, phone: e.target.value }))}
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
           </div>
           <div>
-            <label className="text-sm text-neutral-600 block mb-1">Yeni Şifre (opsiyonel)</label>
+            <label className="text-sm text-neutral-400 block mb-1">Yeni Şifre (opsiyonel)</label>
             <input
               type="password"
               value={account.newPassword}
               onChange={(e) => setAccount((a) => ({ ...a, newPassword: e.target.value }))}
               placeholder="••••••••"
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
           </div>
           <div className="sm:col-span-2">
-            <label className="text-sm text-neutral-600 block mb-1">Adres</label>
+            <label className="text-sm text-neutral-400 block mb-1">Adres</label>
             <textarea
               value={account.address}
               onChange={(e) => setAccount((a) => ({ ...a, address: e.target.value }))}
               rows={3}
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
           </div>
           <button
@@ -190,23 +190,23 @@ function AccountContent() {
       ) : (
         <div className="space-y-4">
           {orders.length === 0 ? (
-            <p className="text-neutral-500">Henüz siparişiniz bulunmuyor.</p>
+            <p className="text-neutral-400">Henüz siparişiniz bulunmuyor.</p>
           ) : (
             orders.map((order) => (
-              <div key={order.id} className="bg-white border border-neutral-100 rounded-xl p-4">
+              <div key={order.id} className="bg-neutral-900 border border-white/10 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="font-medium text-neutral-800">Sipariş #{order.id}</p>
+                  <p className="font-medium text-neutral-100">Sipariş #{order.id}</p>
                   <OrderStatusBadge status={order.status} />
                 </div>
                 {order.items.map((item) => (
-                  <p key={item.id} className="text-sm text-neutral-600">
+                  <p key={item.id} className="text-sm text-neutral-400">
                     {item.quantity}x {item.productName}
                     {item.customMessage && (
-                      <span className="italic text-amber-700"> — &ldquo;{item.customMessage}&rdquo;</span>
+                      <span className="italic text-amber-400"> — &ldquo;{item.customMessage}&rdquo;</span>
                     )}
                   </p>
                 ))}
-                <p className="font-semibold text-neutral-900 mt-2">{formatTRY(order.totalAmount)}</p>
+                <p className="font-semibold text-white mt-2">{formatTRY(order.totalAmount)}</p>
               </div>
             ))
           )}

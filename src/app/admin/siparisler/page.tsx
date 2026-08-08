@@ -53,42 +53,42 @@ export default function AdminOrdersPage() {
     setUpdatingId(null);
   }
 
-  if (loading) return <p className="text-neutral-500">Yükleniyor...</p>;
+  if (loading) return <p className="text-neutral-400">Yükleniyor...</p>;
 
   return (
     <div>
-      <h1 className="font-serif text-2xl text-neutral-900 mb-6">Siparişler</h1>
+      <h1 className="font-serif text-2xl text-white mb-6">Siparişler</h1>
 
       {orders.length === 0 ? (
-        <p className="text-neutral-500">Henüz sipariş bulunmuyor.</p>
+        <p className="text-neutral-400">Henüz sipariş bulunmuyor.</p>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
-            <div key={order.id} className="bg-white border border-neutral-100 rounded-xl p-5">
+            <div key={order.id} className="bg-neutral-900 border border-white/10 rounded-xl p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-medium text-neutral-800">
+                  <p className="font-medium text-neutral-100">
                     #{order.id} · {order.fullName}
                   </p>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-xs text-neutral-400">
                     {order.customerEmail} · {order.phone}
                   </p>
-                  <p className="text-xs text-neutral-500 mt-1">{order.address}</p>
+                  <p className="text-xs text-neutral-400 mt-1">{order.address}</p>
                   {order.deliveryDate && (
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-neutral-400">
                       Teslimat tarihi: {order.deliveryDate}
                     </p>
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-neutral-900">{formatTRY(order.totalAmount)}</p>
+                  <p className="font-semibold text-white">{formatTRY(order.totalAmount)}</p>
                   <span
                     className={`text-[11px] px-2 py-0.5 rounded-full ${
                       order.paymentStatus === "odendi"
-                        ? "bg-green-100 text-green-700"
+                        ? "bg-green-500/15 text-green-400"
                         : order.paymentStatus === "iptal"
-                        ? "bg-rose-100 text-rose-700"
-                        : "bg-amber-100 text-amber-700"
+                        ? "bg-rose-500/15 text-rose-400"
+                        : "bg-amber-400/15 text-amber-400"
                     }`}
                   >
                     {order.paymentStatus === "odendi"
@@ -100,13 +100,13 @@ export default function AdminOrdersPage() {
                 </div>
               </div>
 
-              <div className="mt-3 border-t border-neutral-100 pt-3 space-y-1">
+              <div className="mt-3 border-t border-white/10 pt-3 space-y-1">
                 {order.items.map((item) => (
-                  <div key={item.id} className="text-sm text-neutral-600 flex justify-between">
+                  <div key={item.id} className="text-sm text-neutral-400 flex justify-between">
                     <span>
                       {item.quantity}x {item.productName}
                       {item.customMessage && (
-                        <span className="text-amber-700 italic"> — &ldquo;{item.customMessage}&rdquo;</span>
+                        <span className="text-amber-400 italic"> — &ldquo;{item.customMessage}&rdquo;</span>
                       )}
                     </span>
                     <span>{formatTRY(item.unitPrice * item.quantity)}</span>
@@ -115,12 +115,12 @@ export default function AdminOrdersPage() {
               </div>
 
               <div className="mt-4 flex items-center gap-2">
-                <label className="text-sm text-neutral-600">Durum:</label>
+                <label className="text-sm text-neutral-400">Durum:</label>
                 <select
                   value={order.status}
                   disabled={updatingId === order.id}
                   onChange={(e) => updateStatus(order.id, e.target.value)}
-                  className="border border-neutral-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-amber-400"
+                  className="border border-white/15 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-amber-400"
                 >
                   {STATUS_OPTIONS.map((s) => (
                     <option key={s} value={s}>

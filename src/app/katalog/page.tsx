@@ -40,19 +40,19 @@ function KatalogContent() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-6">Takı Kataloğu</h1>
+      <h1 className="font-serif text-3xl text-white mb-6">Takı Kataloğu</h1>
 
       <div className="flex flex-col md:flex-row gap-3 mb-8">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ürün ara..."
-          className="flex-1 border border-neutral-200 rounded-full px-4 py-2 text-sm outline-none focus:border-amber-400"
+          className="flex-1 border border-white/15 rounded-full px-4 py-2 text-sm outline-none focus:border-amber-400"
         />
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="border border-neutral-200 rounded-full px-4 py-2 text-sm outline-none focus:border-amber-400"
+          className="border border-white/15 rounded-full px-4 py-2 text-sm outline-none focus:border-amber-400"
         >
           <option value="">Tüm Kategoriler</option>
           {CATEGORIES.map((c) => (
@@ -61,7 +61,7 @@ function KatalogContent() {
             </option>
           ))}
         </select>
-        <label className="flex items-center gap-2 text-sm text-neutral-700 px-2">
+        <label className="flex items-center gap-2 text-sm text-neutral-300 px-2">
           <input
             type="checkbox"
             checked={bestSellerOnly}
@@ -74,7 +74,7 @@ function KatalogContent() {
       {productsLoading ? (
         <p className="text-neutral-400 text-center py-16">Yükleniyor...</p>
       ) : filtered.length === 0 ? (
-        <p className="text-neutral-500 text-center py-16">
+        <p className="text-neutral-400 text-center py-16">
           Aramanızla eşleşen ürün bulunamadı.
         </p>
       ) : (

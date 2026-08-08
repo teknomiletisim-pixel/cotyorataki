@@ -124,21 +124,21 @@ export default function ProductForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-5 max-w-2xl">
       <div>
-        <label className="text-sm text-neutral-600 block mb-1">Ürün Adı</label>
+        <label className="text-sm text-neutral-400 block mb-1">Ürün Adı</label>
         <input
           required
           value={values.name}
           onChange={(e) => updateField("name", e.target.value)}
-          className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+          className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
         />
       </div>
 
       <div>
-        <label className="text-sm text-neutral-600 block mb-1">Kategori</label>
+        <label className="text-sm text-neutral-400 block mb-1">Kategori</label>
         <select
           value={values.category}
           onChange={(e) => updateField("category", e.target.value)}
-          className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+          className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
         >
           {CATEGORIES.map((c) => (
             <option key={c} value={c}>
@@ -149,24 +149,24 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label className="text-sm text-neutral-600 block mb-1">Açıklama</label>
+        <label className="text-sm text-neutral-400 block mb-1">Açıklama</label>
         <textarea
           rows={3}
           value={values.description}
           onChange={(e) => updateField("description", e.target.value)}
-          className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+          className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
         />
       </div>
 
       <div>
-        <label className="text-sm text-neutral-600 block mb-1">Fotoğraf URL&apos;leri</label>
+        <label className="text-sm text-neutral-400 block mb-1">Fotoğraf URL&apos;leri</label>
         {values.images.map((img, i) => (
           <div key={i} className="flex gap-2 mb-2">
             <input
               value={img}
               onChange={(e) => updateImage(i, e.target.value)}
               placeholder="https://..."
-              className="flex-1 border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="flex-1 border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
             <button
               type="button"
@@ -180,7 +180,7 @@ export default function ProductForm({
         <button
           type="button"
           onClick={addImageField}
-          className="text-sm text-amber-700 hover:underline flex items-center gap-1"
+          className="text-sm text-amber-400 hover:underline flex items-center gap-1"
         >
           <Plus size={14} /> Fotoğraf ekle
         </button>
@@ -192,24 +192,24 @@ export default function ProductForm({
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Gram Altın Miktarı</label>
+          <label className="text-sm text-neutral-400 block mb-1">Gram Altın Miktarı</label>
           <input
             type="number"
             step="0.01"
             required
             value={values.goldGrams}
             onChange={(e) => updateField("goldGrams", parseFloat(e.target.value) || 0)}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">İşçilik Bedeli (TL)</label>
+          <label className="text-sm text-neutral-400 block mb-1">İşçilik Bedeli (TL)</label>
           <input
             type="number"
             required
             value={values.laborCost}
             onChange={(e) => updateField("laborCost", parseInt(e.target.value) || 0)}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
       </div>
@@ -220,11 +220,11 @@ export default function ProductForm({
 
       <div>
         <div className="flex items-center justify-between mb-2">
-          <label className="text-sm text-neutral-600">Kişiselleştirme Alanları</label>
+          <label className="text-sm text-neutral-400">Kişiselleştirme Alanları</label>
           <button
             type="button"
             onClick={addCustomizationField}
-            className="text-sm text-amber-700 hover:underline flex items-center gap-1"
+            className="text-sm text-amber-400 hover:underline flex items-center gap-1"
           >
             <Plus size={14} /> Alan ekle
           </button>
@@ -235,7 +235,7 @@ export default function ProductForm({
               value={field.label}
               onChange={(e) => updateCustomizationField(i, "label", e.target.value)}
               placeholder="Etiket (Örn: Yüzük Ölçüsü)"
-              className="border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
             <input
               value={field.key}
@@ -247,7 +247,7 @@ export default function ProductForm({
                 )
               }
               placeholder="Anahtar (Örn: ringSize)"
-              className="border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
             <button
               type="button"
@@ -261,7 +261,7 @@ export default function ProductForm({
       </div>
 
       <div className="flex items-center gap-6">
-        <label className="flex items-center gap-2 text-sm text-neutral-700">
+        <label className="flex items-center gap-2 text-sm text-neutral-300">
           <input
             type="checkbox"
             checked={values.bestSeller}
@@ -269,7 +269,7 @@ export default function ProductForm({
           />
           Çok Satan olarak işaretle
         </label>
-        <label className="flex items-center gap-2 text-sm text-neutral-700">
+        <label className="flex items-center gap-2 text-sm text-neutral-300">
           <input
             type="checkbox"
             checked={values.allowCustomMessage}
@@ -285,7 +285,7 @@ export default function ProductForm({
         <button
           type="submit"
           disabled={saving}
-          className="bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium px-6 py-3 rounded-full"
+          className="bg-black hover:bg-neutral-800 disabled:opacity-60 text-amber-400 font-medium px-6 py-3 rounded-full"
         >
           {saving ? "Kaydediliyor..." : "Kaydet"}
         </button>
@@ -293,7 +293,7 @@ export default function ProductForm({
           <button
             type="button"
             onClick={onDeleted}
-            className="border border-rose-300 text-rose-600 hover:bg-rose-50 font-medium px-6 py-3 rounded-full"
+            className="border border-rose-300 text-rose-600 hover:bg-rose-500/10 font-medium px-6 py-3 rounded-full"
           >
             Ürünü Kaldır
           </button>

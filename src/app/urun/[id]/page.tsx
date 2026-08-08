@@ -25,7 +25,7 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
-        <p className="text-neutral-600">Ürün bulunamadı.</p>
+        <p className="text-neutral-400">Ürün bulunamadı.</p>
       </div>
     );
   }
@@ -47,7 +47,7 @@ export default function ProductDetailPage() {
     <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-10">
       {/* GÖRSELLER */}
       <div>
-        <div className="relative aspect-square bg-neutral-50 rounded-xl overflow-hidden">
+        <div className="relative aspect-square bg-neutral-950 rounded-xl overflow-hidden">
           <Image
             src={product.images[activeImage]}
             alt={product.name}
@@ -77,10 +77,10 @@ export default function ProductDetailPage() {
       <div>
         <p className="text-xs text-amber-600 font-medium">{product.category}</p>
         <div className="flex items-start justify-between gap-4 mt-1">
-          <h1 className="font-serif text-3xl text-neutral-900">{product.name}</h1>
+          <h1 className="font-serif text-3xl text-white">{product.name}</h1>
           <button
             onClick={() => toggleFavorite(product.id)}
-            className="shrink-0 mt-1 p-2 rounded-full border border-neutral-200 hover:border-rose-300"
+            className="shrink-0 mt-1 p-2 rounded-full border border-white/15 hover:border-rose-300"
             aria-label="Favorilere ekle"
           >
             <Heart size={20} className={fav ? "fill-rose-500 text-rose-500" : "text-neutral-400"} />
@@ -91,30 +91,30 @@ export default function ProductDetailPage() {
           {activeSpecialDay && (
             <span className="text-neutral-400 line-through">{formatTRY(basePrice)}</span>
           )}
-          <span className="text-2xl font-semibold text-neutral-900">{formatTRY(finalPrice)}</span>
+          <span className="text-2xl font-semibold text-white">{formatTRY(finalPrice)}</span>
           {activeSpecialDay && (
-            <span className="bg-rose-100 text-rose-700 text-xs font-medium px-2 py-1 rounded-full">
+            <span className="bg-rose-500/15 text-rose-400 text-xs font-medium px-2 py-1 rounded-full">
               %{Math.round(activeSpecialDay.discountRate * 100)} {activeSpecialDay.name} indirimi
             </span>
           )}
         </div>
 
-        <p className="text-neutral-600 mt-4 leading-relaxed">{product.description}</p>
+        <p className="text-neutral-400 mt-4 leading-relaxed">{product.description}</p>
 
         {/* KİŞİSELLEŞTİRME ALANLARI */}
         {product.customizationFields.length > 0 && (
           <div className="mt-6 space-y-3">
-            <h3 className="text-sm font-medium text-neutral-800">Ürün Detayları</h3>
+            <h3 className="text-sm font-medium text-neutral-100">Ürün Detayları</h3>
             {product.customizationFields.map((field) => (
               <div key={field.key}>
-                <label className="text-sm text-neutral-600 block mb-1">{field.label}</label>
+                <label className="text-sm text-neutral-400 block mb-1">{field.label}</label>
                 <input
                   value={customization[field.key] ?? ""}
                   onChange={(e) =>
                     setCustomization((prev) => ({ ...prev, [field.key]: e.target.value }))
                   }
                   placeholder={field.placeholder}
-                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+                  className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
                 />
               </div>
             ))}
@@ -124,7 +124,7 @@ export default function ProductDetailPage() {
         {/* ÖZEL MESAJ */}
         {product.allowCustomMessage && (
           <div className="mt-4">
-            <label className="text-sm font-medium text-neutral-800 block mb-1">
+            <label className="text-sm font-medium text-neutral-100 block mb-1">
               Takı Üzerine Özel Mesaj (opsiyonel)
             </label>
             <input
@@ -132,7 +132,7 @@ export default function ProductDetailPage() {
               onChange={(e) => setCustomMessage(e.target.value)}
               placeholder="Örn: Sonsuza Kadar"
               maxLength={30}
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
             />
             <p className="text-xs text-neutral-400 mt-1">En fazla 30 karakter.</p>
           </div>
@@ -153,7 +153,7 @@ export default function ProductDetailPage() {
           </button>
           <button
             onClick={() => router.push("/sepetim")}
-            className="flex-1 border-2 border-black text-black hover:bg-black hover:text-amber-400 font-medium py-3 rounded-full transition-colors"
+            className="flex-1 border-2 border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black font-medium py-3 rounded-full transition-colors"
           >
             Sepete Git
           </button>

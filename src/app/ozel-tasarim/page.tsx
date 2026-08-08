@@ -85,7 +85,7 @@ export default function OzelTasarimPage() {
         <div className="w-14 h-14 rounded-full bg-amber-400 flex items-center justify-center mx-auto mb-6">
           <Check className="text-black" size={28} />
         </div>
-        <h1 className="font-serif text-3xl text-neutral-900 mb-3">Talebiniz Alındı</h1>
+        <h1 className="font-serif text-3xl text-white mb-3">Talebiniz Alındı</h1>
         <p className="text-neutral-500 mb-8">
           Özel tasarım talebinizi inceleyip en kısa sürede sizinle iletişime geçeceğiz.
         </p>
@@ -106,60 +106,60 @@ export default function OzelTasarimPage() {
           HAYALİNİZDEKİ TAKI
         </p>
         <h1 className="font-serif text-4xl text-white mb-4 text-center">Özel Tasarım</h1>
-        <p className="text-neutral-400 text-center mb-12 max-w-lg mx-auto">
+        <p className="text-neutral-500 text-center mb-12 max-w-lg mx-auto">
           Aklınızdaki tasarımı, ilham aldığınız bir fotoğrafı veya videoyu bizimle paylaşın;
           atölyemizde sizin için hayata geçirelim.
         </p>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 sm:p-8 space-y-5">
+        <form onSubmit={handleSubmit} className="bg-neutral-900 rounded-2xl p-6 sm:p-8 space-y-5">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-sm text-neutral-600 block mb-1">Ad Soyad</label>
+              <label className="text-sm text-neutral-300 block mb-1">Ad Soyad</label>
               <input
                 required
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+                className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
               />
             </div>
             <div>
-              <label className="text-sm text-neutral-600 block mb-1">Telefon</label>
+              <label className="text-sm text-neutral-300 block mb-1">Telefon</label>
               <input
                 required
                 value={form.phone}
                 onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                 placeholder="05XX XXX XX XX"
-                className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+                className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-sm text-neutral-600 block mb-1">Tasarımınızı Anlatın</label>
+            <label className="text-sm text-neutral-300 block mb-1">Tasarımınızı Anlatın</label>
             <textarea
               required
               rows={5}
               value={form.description}
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
               placeholder="Örn: Nişan için özel bir yüzük istiyorum, ince ve minimal olsun, tek taş..."
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
             />
           </div>
 
           <div>
-            <label className="text-sm text-neutral-600 block mb-2">
+            <label className="text-sm text-neutral-300 block mb-2">
               Fotoğraf / Video Ekleyin (opsiyonel, en fazla {MAX_FILES} dosya)
             </label>
 
             {media.length > 0 && (
               <div className="grid grid-cols-4 gap-2 mb-3">
                 {media.map((m, i) => (
-                  <div key={i} className="relative aspect-square rounded-lg overflow-hidden bg-neutral-100 border border-neutral-200">
+                  <div key={i} className="relative aspect-square rounded-lg overflow-hidden bg-neutral-800 border border-white/15">
                     {m.type === "image" ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={m.dataUrl} alt={m.filename} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center text-neutral-400">
+                      <div className="w-full h-full flex flex-col items-center justify-center text-neutral-500">
                         <VideoIcon size={20} />
                         <span className="text-[10px] mt-1 px-1 truncate w-full text-center">{m.filename}</span>
                       </div>
@@ -177,7 +177,7 @@ export default function OzelTasarimPage() {
             )}
 
             {media.length < MAX_FILES && (
-              <label className="flex items-center justify-center gap-2 border-2 border-dashed border-neutral-200 rounded-lg py-6 cursor-pointer hover:border-amber-400 text-neutral-500 text-sm">
+              <label className="flex items-center justify-center gap-2 border-2 border-dashed border-white/15 rounded-lg py-6 cursor-pointer hover:border-amber-400 text-neutral-500 text-sm">
                 <Upload size={18} />
                 Dosya Seç (fotoğraf veya video)
                 <input
@@ -189,7 +189,7 @@ export default function OzelTasarimPage() {
                 />
               </label>
             )}
-            <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
+            <p className="text-xs text-neutral-500 mt-1 flex items-center gap-1">
               <ImageIcon size={12} /> Her dosya en fazla 4MB olmalıdır.
             </p>
           </div>

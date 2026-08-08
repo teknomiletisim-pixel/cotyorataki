@@ -13,8 +13,8 @@ export default function BlogPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-14">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-2">Atölyeden</h1>
-      <p className="text-neutral-500 mb-10">
+      <h1 className="font-serif text-3xl text-white mb-2">Atölyeden</h1>
+      <p className="text-neutral-400 mb-10">
         Atölyemizde ürettiğimiz parçalardan ve güncel koleksiyonumuzdan seçkiler.
       </p>
 
@@ -32,9 +32,9 @@ export default function BlogPage() {
               <Link
                 key={p.id}
                 href={`/urun/${p.slug}`}
-                className="flex flex-col sm:flex-row gap-6 bg-white border border-neutral-100 rounded-2xl overflow-hidden hover:shadow-md transition-shadow"
+                className="flex flex-col sm:flex-row gap-6 bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden hover:shadow-md transition-shadow"
               >
-                <div className="relative w-full sm:w-64 aspect-square shrink-0 bg-neutral-50">
+                <div className="relative w-full sm:w-64 aspect-square shrink-0 bg-neutral-950">
                   <Image
                     src={p.images[0]}
                     alt={p.name}
@@ -45,11 +45,11 @@ export default function BlogPage() {
                 </div>
                 <div className="p-5 sm:py-6 flex-1">
                   <p className="text-xs text-amber-600 font-medium">{p.category}</p>
-                  <h2 className="font-serif text-xl text-neutral-900 mt-1">{p.name}</h2>
-                  <p className="text-neutral-600 text-sm mt-2 leading-relaxed line-clamp-3">
+                  <h2 className="font-serif text-xl text-white mt-1">{p.name}</h2>
+                  <p className="text-neutral-400 text-sm mt-2 leading-relaxed line-clamp-3">
                     {p.description}
                   </p>
-                  <p className="font-semibold text-neutral-900 mt-3">{formatTRY(price)}</p>
+                  <p className="font-semibold text-white mt-3">{formatTRY(price)}</p>
                 </div>
               </Link>
             );

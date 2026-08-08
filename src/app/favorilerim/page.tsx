@@ -15,8 +15,8 @@ export default function FavoritesPage() {
   if (favProducts.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
-        <h1 className="font-serif text-2xl text-neutral-900 mb-3">Favori Listeniz Boş</h1>
-        <p className="text-neutral-500 mb-6">Beğendiğiniz ürünlerin üzerindeki kalp ikonuna tıklayarak favorilerinize ekleyebilirsiniz.</p>
+        <h1 className="font-serif text-2xl text-white mb-3">Favori Listeniz Boş</h1>
+        <p className="text-neutral-400 mb-6">Beğendiğiniz ürünlerin üzerindeki kalp ikonuna tıklayarak favorilerinize ekleyebilirsiniz.</p>
         <Link href="/katalog" className="bg-black hover:bg-neutral-800 text-amber-400 px-6 py-3 rounded-full font-medium">
           Kataloğa Git
         </Link>
@@ -26,7 +26,7 @@ export default function FavoritesPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-8">Favori Ürünlerim</h1>
+      <h1 className="font-serif text-3xl text-white mb-8">Favori Ürünlerim</h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {favProducts.map((p) => p && <ProductCard key={p.id} product={p} />)}
       </div>

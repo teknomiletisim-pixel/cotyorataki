@@ -49,7 +49,7 @@ export default function Page() {
       <div className="space-y-6 not-prose">
         {FAQ.map((item) => (
           <div key={item.q}>
-            <p className="font-medium text-neutral-900">{item.q}</p>
+            <p className="font-medium text-white">{item.q}</p>
             <p className="text-neutral-600 mt-1">{item.a}</p>
           </div>
         ))}

@@ -23,8 +23,8 @@ export default function CartPage() {
   if (cart.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
-        <h1 className="font-serif text-2xl text-neutral-900 mb-3">Sepetiniz Boş</h1>
-        <p className="text-neutral-500 mb-6">Kataloğumuza göz atarak beğendiğiniz ürünleri sepetinize ekleyebilirsiniz.</p>
+        <h1 className="font-serif text-2xl text-white mb-3">Sepetiniz Boş</h1>
+        <p className="text-neutral-400 mb-6">Kataloğumuza göz atarak beğendiğiniz ürünleri sepetinize ekleyebilirsiniz.</p>
         <Link href="/katalog" className="bg-black hover:bg-neutral-800 text-amber-400 px-6 py-3 rounded-full font-medium">
           Kataloğa Git
         </Link>
@@ -34,7 +34,7 @@ export default function CartPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-8">Sepetim</h1>
+      <h1 className="font-serif text-3xl text-white mb-8">Sepetim</h1>
 
       <div className="space-y-4">
         {cart.map((item, index) => {
@@ -43,13 +43,13 @@ export default function CartPage() {
           const price = calculatePrice(product, goldPricePerGram) * item.quantity;
 
           return (
-            <div key={index} className="flex gap-4 bg-white border border-neutral-100 rounded-xl p-4">
-              <Link href={`/urun/${product.slug}`} className="relative w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-neutral-50">
+            <div key={index} className="flex gap-4 bg-neutral-900 border border-white/10 rounded-xl p-4">
+              <Link href={`/urun/${product.slug}`} className="relative w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-neutral-950">
                 <Image src={product.images[0]} alt={product.name} fill className="object-cover" sizes="96px" />
               </Link>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
-                  <Link href={`/urun/${product.slug}`} className="font-medium text-neutral-800 hover:text-amber-700">
+                  <Link href={`/urun/${product.slug}`} className="font-medium text-neutral-100 hover:text-amber-400">
                     {product.name}
                   </Link>
                   <button
@@ -62,7 +62,7 @@ export default function CartPage() {
                 </div>
 
                 {Object.entries(item.customization).length > 0 && (
-                  <p className="text-xs text-neutral-500 mt-1">
+                  <p className="text-xs text-neutral-400 mt-1">
                     {Object.entries(item.customization)
                       .filter(([, v]) => v)
                       .map(([, v]) => v)
@@ -70,7 +70,7 @@ export default function CartPage() {
                   </p>
                 )}
                 {item.customMessage && (
-                  <p className="text-xs text-amber-700 mt-1 italic">
+                  <p className="text-xs text-amber-400 mt-1 italic">
                     Özel mesaj: &ldquo;{item.customMessage}&rdquo;
                   </p>
                 )}
@@ -79,16 +79,16 @@ export default function CartPage() {
                   <OrderStatusBadge status={item.status} />
                 </div>
 
-                <p className="font-semibold text-neutral-900 mt-2">{formatTRY(price)}</p>
+                <p className="font-semibold text-white mt-2">{formatTRY(price)}</p>
               </div>
             </div>
           );
         })}
       </div>
 
-      <div className="mt-8 flex items-center justify-between border-t border-neutral-200 pt-6">
-        <span className="text-lg font-medium text-neutral-800">Toplam</span>
-        <span className="text-2xl font-semibold text-neutral-900">{formatTRY(total)}</span>
+      <div className="mt-8 flex items-center justify-between border-t border-white/15 pt-6">
+        <span className="text-lg font-medium text-neutral-100">Toplam</span>
+        <span className="text-2xl font-semibold text-white">{formatTRY(total)}</span>
       </div>
 
       <Link

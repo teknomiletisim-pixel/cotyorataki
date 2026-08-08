@@ -43,15 +43,15 @@ export default function AdminProductsPage() {
     );
   }
 
-  if (loading) return <p className="text-neutral-500">Yükleniyor...</p>;
+  if (loading) return <p className="text-neutral-400">Yükleniyor...</p>;
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-serif text-2xl text-neutral-900">Ürünler</h1>
+        <h1 className="font-serif text-2xl text-white">Ürünler</h1>
         <Link
           href="/admin/urunler/yeni"
-          className="flex items-center gap-1 bg-amber-700 hover:bg-amber-800 text-white text-sm font-medium px-4 py-2 rounded-full"
+          className="flex items-center gap-1 bg-black hover:bg-neutral-800 text-amber-400 text-sm font-medium px-4 py-2 rounded-full"
         >
           <Plus size={16} /> Yeni Ürün
         </Link>
@@ -61,18 +61,18 @@ export default function AdminProductsPage() {
         {productList.map((p) => (
           <div
             key={p.id}
-            className={`flex items-center gap-4 bg-white border border-neutral-100 rounded-xl p-3 ${
+            className={`flex items-center gap-4 bg-neutral-900 border border-white/10 rounded-xl p-3 ${
               !p.active ? "opacity-50" : ""
             }`}
           >
-            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-neutral-50 shrink-0">
+            <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-neutral-950 shrink-0">
               {p.images[0] && (
                 <Image src={p.images[0]} alt={p.name} fill className="object-cover" sizes="64px" />
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-neutral-800 truncate">{p.name}</p>
-              <p className="text-xs text-neutral-500">
+              <p className="font-medium text-neutral-100 truncate">{p.name}</p>
+              <p className="text-xs text-neutral-400">
                 {p.category} · {p.goldGrams} gr altın + {p.laborCost} TL işçilik
                 {p.bestSeller && " · Çok Satan"}
                 {!p.active && " · Pasif"}
@@ -80,14 +80,14 @@ export default function AdminProductsPage() {
             </div>
             <Link
               href={`/admin/urunler/${p.id}/duzenle`}
-              className="p-2 text-neutral-500 hover:text-amber-700"
+              className="p-2 text-neutral-400 hover:text-amber-400"
               aria-label="Düzenle"
             >
               <Pencil size={18} />
             </Link>
             <button
               onClick={() => toggleActive(p)}
-              className="p-2 text-neutral-500 hover:text-rose-600"
+              className="p-2 text-neutral-400 hover:text-rose-600"
               aria-label={p.active ? "Pasife al" : "Aktif et"}
             >
               {p.active ? <EyeOff size={18} /> : <Eye size={18} />}

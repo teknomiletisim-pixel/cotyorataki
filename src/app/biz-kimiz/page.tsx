@@ -8,8 +8,8 @@
 export default function Page() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-14">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-6">Biz Kimiz</h1>
-      <div className="prose prose-neutral text-neutral-600 leading-relaxed space-y-4">
+      <h1 className="font-serif text-3xl text-white mb-6">Biz Kimiz</h1>
+      <div className="prose prose-neutral text-neutral-400 leading-relaxed space-y-4">
         <p>
           [Buraya atölyenizin kuruluş hikayesini, kaç yıldır bu işi yaptığınızı,
           neden bu işe başladığınızı yazabilirsiniz.]

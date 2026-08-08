@@ -55,30 +55,30 @@ function LoginForm() {
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-2">Giriş Yap</h1>
-      <p className="text-neutral-500 text-sm mb-8">
+      <h1 className="font-serif text-3xl text-white mb-2">Giriş Yap</h1>
+      <p className="text-neutral-400 text-sm mb-8">
         Hesabınıza giriş yaparak siparişlerinizi takip edebilirsiniz.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">E-posta</label>
+          <label className="text-sm text-neutral-400 block mb-1">E-posta</label>
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Şifre</label>
+          <label className="text-sm text-neutral-400 block mb-1">Şifre</label>
           <input
             type="password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
 
@@ -101,9 +101,9 @@ function LoginForm() {
 
       <GoogleSignInButton callbackUrl={callbackUrl} />
 
-      <p className="text-sm text-neutral-500 mt-6 text-center">
+      <p className="text-sm text-neutral-400 mt-6 text-center">
         Hesabınız yok mu?{" "}
-        <Link href="/kayit" className="text-amber-700 font-medium hover:underline">
+        <Link href="/kayit" className="text-amber-400 font-medium hover:underline">
           Hemen kayıt olun
         </Link>
       </p>

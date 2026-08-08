@@ -47,17 +47,17 @@ export default function RingSizeCalculatorPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-14">
       <div className="print:hidden">
-        <h1 className="font-serif text-3xl text-neutral-900 mb-2">Yüzük Ölçüsü Hesaplama</h1>
-        <p className="text-neutral-600 mb-8">
+        <h1 className="font-serif text-3xl text-white mb-2">Yüzük Ölçüsü Hesaplama</h1>
+        <p className="text-neutral-400 mb-8">
           Ölçü aletiyle uğraşmadan, elinizde zaten uyan bir yüzüğü kullanarak
           doğru ölçünüzü bulabilirsiniz.
         </p>
 
-        <div className="flex gap-6 border-b border-neutral-200 mb-8">
+        <div className="flex gap-6 border-b border-white/15 mb-8">
           <button
             onClick={() => setTab("yazdir")}
             className={`pb-3 text-sm font-medium border-b-2 ${
-              tab === "yazdir" ? "border-amber-600 text-amber-700" : "border-transparent text-neutral-500"
+              tab === "yazdir" ? "border-amber-600 text-amber-400" : "border-transparent text-neutral-400"
             }`}
           >
             En Kolay Yöntem: Yazdır ve Karşılaştır
@@ -65,7 +65,7 @@ export default function RingSizeCalculatorPage() {
           <button
             onClick={() => setTab("hesapla")}
             className={`pb-3 text-sm font-medium border-b-2 ${
-              tab === "hesapla" ? "border-amber-600 text-amber-700" : "border-transparent text-neutral-500"
+              tab === "hesapla" ? "border-amber-600 text-amber-400" : "border-transparent text-neutral-400"
             }`}
           >
             Elle Ölçüm Girerek Hesapla
@@ -75,9 +75,9 @@ export default function RingSizeCalculatorPage() {
 
       {tab === "yazdir" && (
         <div>
-          <div className="print:hidden bg-amber-50 border border-amber-100 rounded-xl p-5 mb-8">
-            <h2 className="font-medium text-amber-900 mb-2">Nasıl Kullanılır?</h2>
-            <ol className="list-decimal list-inside text-sm text-neutral-700 space-y-1">
+          <div className="print:hidden bg-amber-400/10 border border-amber-400/20 rounded-xl p-5 mb-8">
+            <h2 className="font-medium text-amber-300 mb-2">Nasıl Kullanılır?</h2>
+            <ol className="list-decimal list-inside text-sm text-neutral-300 space-y-1">
               <li>Aşağıdaki <strong>"Yazdır"</strong> butonuna basın.</li>
               <li>
                 Yazdırma penceresinde ölçeğin <strong>"%100" / "Gerçek Boyut"</strong> olduğundan emin olun
@@ -106,7 +106,7 @@ export default function RingSizeCalculatorPage() {
                     className="rounded-full border-2 border-neutral-800"
                     style={{ width: `${mm}mm`, height: `${mm}mm` }}
                   />
-                  <span className="text-xs text-neutral-600 font-medium">Ölçü {row.size}</span>
+                  <span className="text-xs text-neutral-400 font-medium">Ölçü {row.size}</span>
                 </div>
               );
             })}
@@ -116,23 +116,23 @@ export default function RingSizeCalculatorPage() {
 
       {tab === "hesapla" && (
         <div className="print:hidden max-w-xl">
-          <p className="text-neutral-600 mb-6">
+          <p className="text-neutral-400 mb-6">
             Elinizde bir kumpas veya milimetrik cetveliniz varsa, uyan bir yüzüğün
             iç çapını (mm) girerek de ölçünüzü bulabilirsiniz.
           </p>
-          <label className="text-sm text-neutral-600 block mb-1">İç Çap (mm)</label>
+          <label className="text-sm text-neutral-400 block mb-1">İç Çap (mm)</label>
           <input
             value={diameterInput}
             onChange={(e) => setDiameterInput(e.target.value)}
             type="number"
             step="0.1"
             placeholder="Örn: 17.3"
-            className="w-full border border-neutral-200 rounded-lg px-4 py-3 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-4 py-3 outline-none focus:border-amber-400"
           />
           {closestSize !== null && (
-            <div className="mt-6 bg-amber-50 border border-amber-100 rounded-xl p-6 text-center">
-              <p className="text-sm text-neutral-600">Tahmini Yüzük Ölçünüz</p>
-              <p className="text-4xl font-serif text-amber-800 mt-1">{closestSize}</p>
+            <div className="mt-6 bg-amber-400/10 border border-amber-400/20 rounded-xl p-6 text-center">
+              <p className="text-sm text-neutral-400">Tahmini Yüzük Ölçünüz</p>
+              <p className="text-4xl font-serif text-amber-300 mt-1">{closestSize}</p>
             </div>
           )}
         </div>

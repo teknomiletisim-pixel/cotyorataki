@@ -39,11 +39,11 @@ export default function EditProductPage() {
     router.refresh();
   }
 
-  if (!initialValues) return <p className="text-neutral-500">Yükleniyor...</p>;
+  if (!initialValues) return <p className="text-neutral-400">Yükleniyor...</p>;
 
   return (
     <div>
-      <h1 className="font-serif text-2xl text-neutral-900 mb-6">Ürünü Düzenle</h1>
+      <h1 className="font-serif text-2xl text-white mb-6">Ürünü Düzenle</h1>
       <ProductForm
         initialValues={initialValues}
         submitUrl={`/api/admin/products/${params.id}`}

@@ -51,68 +51,68 @@ export default function RegisterPage() {
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-2">Hesap Oluştur</h1>
-      <p className="text-neutral-500 text-sm mb-8">
+      <h1 className="font-serif text-3xl text-white mb-2">Hesap Oluştur</h1>
+      <p className="text-neutral-400 text-sm mb-8">
         Siparişlerinizi kolayca takip etmek için hesap oluşturun.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-sm text-neutral-600 block mb-1">Ad</label>
+            <label className="text-sm text-neutral-400 block mb-1">Ad</label>
             <input
               required
               value={form.firstName}
               onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))}
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
             />
           </div>
           <div>
-            <label className="text-sm text-neutral-600 block mb-1">Soyad</label>
+            <label className="text-sm text-neutral-400 block mb-1">Soyad</label>
             <input
               required
               value={form.lastName}
               onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))}
-              className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
             />
           </div>
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">E-posta</label>
+          <label className="text-sm text-neutral-400 block mb-1">E-posta</label>
           <input
             type="email"
             required
             value={form.email}
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Telefon</label>
+          <label className="text-sm text-neutral-400 block mb-1">Telefon</label>
           <input
             value={form.phone}
             onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Adres</label>
+          <label className="text-sm text-neutral-400 block mb-1">Adres</label>
           <textarea
             rows={2}
             value={form.address}
             onChange={(e) => setForm((f) => ({ ...f, address: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
         </div>
         <div>
-          <label className="text-sm text-neutral-600 block mb-1">Şifre</label>
+          <label className="text-sm text-neutral-400 block mb-1">Şifre</label>
           <input
             type="password"
             required
             minLength={6}
             value={form.password}
             onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-            className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
           />
           <p className="text-xs text-neutral-400 mt-1">En az 6 karakter.</p>
         </div>
@@ -136,9 +136,9 @@ export default function RegisterPage() {
 
       <GoogleSignInButton callbackUrl="/hesabim" />
 
-      <p className="text-sm text-neutral-500 mt-6 text-center">
+      <p className="text-sm text-neutral-400 mt-6 text-center">
         Zaten hesabınız var mı?{" "}
-        <Link href="/giris" className="text-amber-700 font-medium hover:underline">
+        <Link href="/giris" className="text-amber-400 font-medium hover:underline">
           Giriş yapın
         </Link>
       </p>

@@ -20,7 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-[220px_1fr] gap-8">
       <aside className="space-y-1">
-        <p className="font-serif text-lg text-amber-900 mb-4 px-2">Yönetim Paneli</p>
+        <p className="font-serif text-lg text-amber-300 mb-4 px-2">Yönetim Paneli</p>
         {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
           const active = pathname.startsWith(href);
           return (
@@ -29,8 +29,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               href={href}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium ${
                 active
-                  ? "bg-amber-100 text-amber-900"
-                  : "text-neutral-600 hover:bg-neutral-100"
+                  ? "bg-amber-400/15 text-amber-300"
+                  : "text-neutral-400 hover:bg-neutral-800"
               }`}
             >
               <Icon size={16} />
@@ -40,7 +40,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         })}
         <button
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-rose-600 hover:bg-rose-50 mt-4"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-rose-600 hover:bg-rose-500/10 mt-4"
         >
           <LogOut size={16} />
           Çıkış Yap

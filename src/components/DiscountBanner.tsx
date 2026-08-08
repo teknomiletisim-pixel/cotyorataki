@@ -33,16 +33,16 @@ export default function DiscountBanner() {
 
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/60 px-4">
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-amber-200">
+      <div className="relative bg-neutral-900 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-amber-400/30">
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 z-10 bg-white/90 rounded-full p-1.5 text-neutral-500 hover:text-neutral-800"
+          className="absolute top-3 right-3 z-10 bg-neutral-900/90 rounded-full p-1.5 text-neutral-400 hover:text-neutral-100"
           aria-label="Kapat"
         >
           <X size={18} />
         </button>
 
-        <div className="relative w-full aspect-[4/3] bg-neutral-100">
+        <div className="relative w-full aspect-[4/3] bg-neutral-800">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={activeSpecialDay.bannerImage || DEFAULT_BANNER_IMAGE}
@@ -52,7 +52,7 @@ export default function DiscountBanner() {
         </div>
 
         <div className="p-6 text-center">
-          <h3 className="font-serif text-lg text-amber-900 leading-snug uppercase tracking-wide">
+          <h3 className="font-serif text-lg text-amber-300 leading-snug uppercase tracking-wide">
             {activeSpecialDay.bannerMessage}
           </h3>
           <button

@@ -25,23 +25,23 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-100 print:hidden">
+    <header className="sticky top-0 z-50 bg-black/95 backdrop-blur border-b border-white/10 print:hidden">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         <Link href="/" className="shrink-0">
-          <span className="font-serif text-2xl tracking-[0.2em] text-black">
+          <span className="font-serif text-2xl tracking-[0.2em] text-white">
             COTYORA <span className="text-amber-500">TAKI</span>
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-700 font-medium">
-          <Link href="/katalog" className="hover:text-amber-600">Katalog</Link>
-          <Link href="/katalog?filter=cok-satanlar" className="hover:text-amber-600">Çok Satanlar</Link>
+        <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-300 font-medium">
+          <Link href="/katalog" className="hover:text-amber-400">Katalog</Link>
+          <Link href="/katalog?filter=cok-satanlar" className="hover:text-amber-400">Çok Satanlar</Link>
           {isAdmin ? (
-            <Link href="/admin" className="hover:text-amber-600 flex items-center gap-1">
+            <Link href="/admin" className="hover:text-amber-400 flex items-center gap-1">
               <ShieldCheck size={16} /> Yönetim Paneli
             </Link>
           ) : (
-            <Link href={accountHref} className="hover:text-amber-600">
+            <Link href={accountHref} className="hover:text-amber-400">
               {status === "authenticated" ? "Hesabım" : "Giriş Yap"}
             </Link>
           )}
@@ -49,19 +49,19 @@ export default function Header() {
 
         <form
           onSubmit={handleSearch}
-          className="hidden md:flex items-center flex-1 max-w-sm border border-neutral-200 rounded-full px-3 py-1.5"
+          className="hidden md:flex items-center flex-1 max-w-sm border border-white/15 rounded-full px-3 py-1.5"
         >
-          <Search size={16} className="text-neutral-400 mr-2" />
+          <Search size={16} className="text-neutral-500 mr-2" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Ürün ara..."
-            className="w-full text-sm outline-none bg-transparent"
+            className="w-full text-sm outline-none bg-transparent text-white placeholder-neutral-500"
           />
         </form>
 
         <div className="flex items-center gap-4">
-          <Link href="/favorilerim" className="relative text-neutral-700 hover:text-amber-600">
+          <Link href="/favorilerim" className="relative text-neutral-300 hover:text-amber-400">
             <Heart size={22} />
             {favorites.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-amber-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
@@ -69,7 +69,7 @@ export default function Header() {
               </span>
             )}
           </Link>
-          <Link href="/sepetim" className="relative text-neutral-700 hover:text-amber-600">
+          <Link href="/sepetim" className="relative text-neutral-300 hover:text-amber-400">
             <ShoppingBag size={22} />
             {cart.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-amber-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
@@ -77,11 +77,11 @@ export default function Header() {
               </span>
             )}
           </Link>
-          <Link href={isAdmin ? "/admin" : accountHref} className="hidden md:block text-neutral-700 hover:text-amber-600">
+          <Link href={isAdmin ? "/admin" : accountHref} className="hidden md:block text-neutral-300 hover:text-amber-400">
             <User size={22} />
           </Link>
           <button
-            className="md:hidden text-neutral-700"
+            className="md:hidden text-neutral-300"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Menü"
           >
@@ -91,17 +91,17 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-amber-100 px-4 py-3 space-y-3">
-          <form onSubmit={handleSearch} className="flex items-center border border-neutral-200 rounded-full px-3 py-1.5">
-            <Search size={16} className="text-neutral-400 mr-2" />
+        <div className="md:hidden border-t border-white/10 px-4 py-3 space-y-3">
+          <form onSubmit={handleSearch} className="flex items-center border border-white/15 rounded-full px-3 py-1.5">
+            <Search size={16} className="text-neutral-500 mr-2" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ürün ara..."
-              className="w-full text-sm outline-none bg-transparent"
+              className="w-full text-sm outline-none bg-transparent text-white placeholder-neutral-500"
             />
           </form>
-          <nav className="flex flex-col gap-2 text-sm text-neutral-700 font-medium">
+          <nav className="flex flex-col gap-2 text-sm text-neutral-300 font-medium">
             <Link href="/katalog" onClick={() => setMenuOpen(false)}>Katalog</Link>
             <Link href="/katalog?filter=cok-satanlar" onClick={() => setMenuOpen(false)}>Çok Satanlar</Link>
             {isAdmin ? (

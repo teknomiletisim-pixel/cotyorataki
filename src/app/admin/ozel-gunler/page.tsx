@@ -154,65 +154,65 @@ export default function SpecialDaysPage() {
     load();
   }
 
-  if (loading) return <p className="text-neutral-500">Yükleniyor...</p>;
+  if (loading) return <p className="text-neutral-400">Yükleniyor...</p>;
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-serif text-2xl text-neutral-900">Özel Günler</h1>
-          <p className="text-sm text-neutral-500 mt-1">
+          <h1 className="font-serif text-2xl text-white">Özel Günler</h1>
+          <p className="text-sm text-neutral-400 mt-1">
             Belirlediğiniz gün geldiğinde tüm ürünlerde otomatik indirim uygulanır ve
             sitede karşılama ekranı gösterilir.
           </p>
         </div>
         <button
           onClick={openNewForm}
-          className="flex items-center gap-1 bg-amber-700 hover:bg-amber-800 text-white text-sm font-medium px-4 py-2 rounded-full shrink-0"
+          className="flex items-center gap-1 bg-black hover:bg-neutral-800 text-amber-400 text-sm font-medium px-4 py-2 rounded-full shrink-0"
         >
           <Plus size={16} /> Yeni Özel Gün
         </button>
       </div>
 
       {days.length === 0 ? (
-        <p className="text-neutral-500">Henüz özel gün eklenmedi.</p>
+        <p className="text-neutral-400">Henüz özel gün eklenmedi.</p>
       ) : (
         <div className="space-y-3">
           {days.map((row) => (
             <div
               key={row.id}
-              className={`flex items-center gap-4 bg-white border border-neutral-100 rounded-xl p-4 ${
+              className={`flex items-center gap-4 bg-neutral-900 border border-white/10 rounded-xl p-4 ${
                 !row.active ? "opacity-50" : ""
               }`}
             >
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-neutral-800">
+                <p className="font-medium text-neutral-100">
                   {row.name}{" "}
                   <span className="text-xs text-neutral-400 font-normal">
                     ({row.day} {MONTHS[row.month - 1]})
                   </span>
                 </p>
-                <p className="text-xs text-neutral-500 mt-0.5">
+                <p className="text-xs text-neutral-400 mt-0.5">
                   %{Math.round(Number(row.discountRate) * 100)} indirim · &ldquo;{row.bannerMessage}&rdquo;
                   {!row.active && " · Pasif"}
                 </p>
               </div>
               <button
                 onClick={() => toggleActive(row)}
-                className="text-xs px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:border-amber-300 shrink-0"
+                className="text-xs px-3 py-1.5 rounded-full border border-white/15 text-neutral-400 hover:border-amber-300 shrink-0"
               >
                 {row.active ? "Pasife Al" : "Aktif Et"}
               </button>
               <button
                 onClick={() => openEditForm(row)}
-                className="p-2 text-neutral-500 hover:text-amber-700 shrink-0"
+                className="p-2 text-neutral-400 hover:text-amber-400 shrink-0"
                 aria-label="Düzenle"
               >
                 <Pencil size={18} />
               </button>
               <button
                 onClick={() => handleDelete(row.id)}
-                className="p-2 text-neutral-500 hover:text-rose-600 shrink-0"
+                className="p-2 text-neutral-400 hover:text-rose-600 shrink-0"
                 aria-label="Sil"
               >
                 <Trash2 size={18} />
@@ -224,20 +224,20 @@ export default function SpecialDaysPage() {
 
       {showForm && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-neutral-900 rounded-2xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowForm(false)}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-700"
+              className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-300"
             >
               <X size={20} />
             </button>
-            <h2 className="font-serif text-xl text-neutral-900 mb-4">
+            <h2 className="font-serif text-xl text-white mb-4">
               {editingId ? "Özel Günü Düzenle" : "Yeni Özel Gün"}
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-sm text-neutral-600 block mb-1">
+                <label className="text-sm text-neutral-400 block mb-1">
                   Özel Gün Adı (Örn: Anneler Günü)
                 </label>
                 <input
@@ -254,17 +254,17 @@ export default function SpecialDaysPage() {
                         : f.bannerMessage,
                     }));
                   }}
-                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+                  className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm text-neutral-600 block mb-1">Ay</label>
+                  <label className="text-sm text-neutral-400 block mb-1">Ay</label>
                   <select
                     value={form.month}
                     onChange={(e) => updateField("month", Number(e.target.value))}
-                    className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+                    className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
                   >
                     {MONTHS.map((m, i) => (
                       <option key={m} value={i + 1}>
@@ -274,7 +274,7 @@ export default function SpecialDaysPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="text-sm text-neutral-600 block mb-1">Gün</label>
+                  <label className="text-sm text-neutral-400 block mb-1">Gün</label>
                   <input
                     type="number"
                     min={1}
@@ -282,13 +282,13 @@ export default function SpecialDaysPage() {
                     required
                     value={form.day}
                     onChange={(e) => updateField("day", Number(e.target.value))}
-                    className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+                    className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-sm text-neutral-600 block mb-1">İndirim Oranı (%)</label>
+                <label className="text-sm text-neutral-400 block mb-1">İndirim Oranı (%)</label>
                 <input
                   type="number"
                   min={1}
@@ -296,17 +296,17 @@ export default function SpecialDaysPage() {
                   required
                   value={form.discountRate}
                   onChange={(e) => updateField("discountRate", Number(e.target.value) || 0)}
-                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+                  className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
                 />
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-sm text-neutral-600">Karşılama Ekranı Yazısı</label>
+                  <label className="text-sm text-neutral-400">Karşılama Ekranı Yazısı</label>
                   <button
                     type="button"
                     onClick={() => updateField("bannerMessage", suggestBannerMessage(form.name))}
-                    className="text-xs text-amber-700 hover:underline"
+                    className="text-xs text-amber-400 hover:underline"
                   >
                     Otomatik öner
                   </button>
@@ -317,23 +317,23 @@ export default function SpecialDaysPage() {
                   value={form.bannerMessage}
                   onChange={(e) => updateField("bannerMessage", e.target.value)}
                   placeholder="ANNELER GÜNÜNE ÖZEL TÜM ÜRÜNLERDE %10 İNDİRİM"
-                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+                  className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
                 />
               </div>
 
               <div>
-                <label className="text-sm text-neutral-600 block mb-1">
+                <label className="text-sm text-neutral-400 block mb-1">
                   Karşılama Ekranı Görseli (URL, opsiyonel)
                 </label>
                 <input
                   value={form.bannerImage}
                   onChange={(e) => updateField("bannerImage", e.target.value)}
                   placeholder="https://... (boş bırakılırsa varsayılan kolye görseli kullanılır)"
-                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
+                  className="w-full border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
                 />
               </div>
 
-              <label className="flex items-center gap-2 text-sm text-neutral-700">
+              <label className="flex items-center gap-2 text-sm text-neutral-300">
                 <input
                   type="checkbox"
                   checked={form.active}
@@ -347,7 +347,7 @@ export default function SpecialDaysPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium py-3 rounded-full"
+                className="w-full bg-black hover:bg-neutral-800 disabled:opacity-60 text-amber-400 font-medium py-3 rounded-full"
               >
                 {saving ? "Kaydediliyor..." : "Kaydet"}
               </button>

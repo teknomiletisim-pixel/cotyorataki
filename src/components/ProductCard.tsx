@@ -16,29 +16,29 @@ export default function ProductCard({ product }: { product: Product }) {
   const fav = isFavorite(product.id);
 
   return (
-    <div className="group relative bg-white rounded-xl border border-neutral-100 hover:shadow-lg transition-shadow overflow-hidden">
+    <div className="group relative bg-neutral-900 rounded-xl border border-white/10 hover:border-amber-400/40 hover:shadow-lg hover:shadow-black/40 transition-all overflow-hidden">
       <button
         onClick={(e) => {
           e.preventDefault();
           toggleFavorite(product.id);
         }}
-        className="absolute top-3 right-3 z-10 bg-white/90 rounded-full p-2 shadow hover:scale-110 transition-transform"
+        className="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur rounded-full p-2 hover:scale-110 transition-transform"
         aria-label="Favorilere ekle"
       >
         <Heart
           size={18}
-          className={fav ? "fill-rose-500 text-rose-500" : "text-neutral-400"}
+          className={fav ? "fill-rose-500 text-rose-500" : "text-neutral-300"}
         />
       </button>
 
       {product.bestSeller && (
-        <span className="absolute top-3 left-3 z-10 bg-amber-600 text-white text-[11px] px-2 py-1 rounded-full">
+        <span className="absolute top-3 left-3 z-10 bg-amber-400 text-black text-[11px] font-medium px-2 py-1 rounded-full">
           Çok Satan
         </span>
       )}
 
       <Link href={`/urun/${product.slug}`}>
-        <div className="relative aspect-square bg-neutral-50">
+        <div className="relative aspect-square bg-neutral-800">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -48,15 +48,15 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         </div>
         <div className="p-4">
-          <p className="text-xs text-amber-600 font-medium">{product.category}</p>
-          <h3 className="font-medium text-neutral-800 mt-1">{product.name}</h3>
+          <p className="text-xs text-amber-400 font-medium">{product.category}</p>
+          <h3 className="font-medium text-neutral-100 mt-1">{product.name}</h3>
           <div className="mt-2 flex items-center gap-2">
             {activeSpecialDay && (
-              <span className="text-xs text-neutral-400 line-through">
+              <span className="text-xs text-neutral-500 line-through">
                 {formatTRY(basePrice)}
               </span>
             )}
-            <span className="font-semibold text-neutral-900">
+            <span className="font-semibold text-white">
               {formatTRY(finalPrice)}
             </span>
           </div>

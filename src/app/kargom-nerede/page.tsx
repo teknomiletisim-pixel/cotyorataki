@@ -48,14 +48,14 @@ export default function KargomNeredePage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-14">
-      <h1 className="font-serif text-3xl text-neutral-900 mb-2">Kargom Nerede</h1>
-      <p className="text-neutral-500 mb-8">
+      <h1 className="font-serif text-3xl text-white mb-2">Kargom Nerede</h1>
+      <p className="text-neutral-400 mb-8">
         Siparişlerinizin güncel durumunu aşağıda görebilirsiniz.
       </p>
 
       {orders.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-neutral-500 mb-6">Henüz bir siparişiniz bulunmuyor.</p>
+          <p className="text-neutral-400 mb-6">Henüz bir siparişiniz bulunmuyor.</p>
           <Link href="/katalog" className="bg-black hover:bg-neutral-800 text-amber-400 px-6 py-3 rounded-full font-medium">
             Kataloğa Git
           </Link>
@@ -63,23 +63,23 @@ export default function KargomNeredePage() {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
-            <div key={order.id} className="bg-white border border-neutral-100 rounded-xl p-5">
+            <div key={order.id} className="bg-neutral-900 border border-white/10 rounded-xl p-5">
               <div className="flex items-center justify-between mb-2">
-                <p className="font-medium text-neutral-800">Sipariş #{order.id}</p>
+                <p className="font-medium text-neutral-100">Sipariş #{order.id}</p>
                 <OrderStatusBadge status={order.status} />
               </div>
               <p className="text-xs text-neutral-400 mb-2">
                 Sipariş tarihi: {new Date(order.createdAt).toLocaleDateString("tr-TR")}
                 {order.deliveryDate && ` · Tercih edilen teslimat: ${order.deliveryDate}`}
               </p>
-              <div className="border-t border-neutral-100 pt-2 mt-2 space-y-1">
+              <div className="border-t border-white/10 pt-2 mt-2 space-y-1">
                 {order.items.map((item) => (
-                  <p key={item.id} className="text-sm text-neutral-600">
+                  <p key={item.id} className="text-sm text-neutral-400">
                     {item.quantity}x {item.productName}
                   </p>
                 ))}
               </div>
-              <p className="font-semibold text-neutral-900 mt-2">{formatTRY(order.totalAmount)}</p>
+              <p className="font-semibold text-white mt-2">{formatTRY(order.totalAmount)}</p>
             </div>
           ))}
         </div>

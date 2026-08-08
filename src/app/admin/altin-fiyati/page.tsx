@@ -37,16 +37,16 @@ export default function GoldPricePage() {
 
   return (
     <div className="max-w-md">
-      <h1 className="font-serif text-2xl text-neutral-900 mb-2">Güncel Gram Altın Fiyatı</h1>
-      <p className="text-neutral-500 text-sm mb-6">
+      <h1 className="font-serif text-2xl text-white mb-2">Güncel Gram Altın Fiyatı</h1>
+      <p className="text-neutral-400 text-sm mb-6">
         Bu değeri değiştirdiğinizde, tüm ürünlerin fiyatı otomatik olarak
         (gram altın miktarı × bu fiyat + işçilik) formülüyle yeniden hesaplanır.
       </p>
 
       {currentPrice !== null && (
-        <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-6">
-          <p className="text-sm text-neutral-600">Şu anki fiyat</p>
-          <p className="text-2xl font-semibold text-amber-900">{formatTRY(currentPrice)} / gram</p>
+        <div className="bg-amber-400/10 border border-amber-400/20 rounded-xl p-4 mb-6">
+          <p className="text-sm text-neutral-400">Şu anki fiyat</p>
+          <p className="text-2xl font-semibold text-amber-300">{formatTRY(currentPrice)} / gram</p>
         </div>
       )}
 
@@ -57,12 +57,12 @@ export default function GoldPricePage() {
           required
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="flex-1 border border-neutral-200 rounded-lg px-4 py-2 outline-none focus:border-amber-400"
+          className="flex-1 border border-white/15 rounded-lg px-4 py-2 outline-none focus:border-amber-400"
         />
         <button
           type="submit"
           disabled={saving}
-          className="bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium px-6 py-2 rounded-full"
+          className="bg-black hover:bg-neutral-800 disabled:opacity-60 text-amber-400 font-medium px-6 py-2 rounded-full"
         >
           {saving ? "Kaydediliyor..." : "Güncelle"}
         </button>
