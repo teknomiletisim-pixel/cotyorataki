@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, X } from "lucide-react";
+import { Plus, X, Upload } from "lucide-react";
 
 const CATEGORIES = ["Yüzük", "Kolye", "Bileklik", "Küpe", "Set"];
+const MAX_IMAGES = 6;
+const MAX_SOURCE_FILE_SIZE = 20 * 1024 * 1024; // 20MB (sıkıştırmadan önceki ham dosya için üst sınır)
+const MAX_DIMENSION = 1600; // px, en uzun kenar
+const JPEG_QUALITY = 0.82;
 
 export interface ProductFormValues {
   name: string;
@@ -23,7 +27,7 @@ const EMPTY_VALUES: ProductFormValues = {
   name: "",
   category: "Yüzük",
   description: "",
-  images: [""],
+  images: [],
   goldGrams: 1,
   laborCost: 0,
   bestSeller: false,
@@ -31,6 +35,48 @@ const EMPTY_VALUES: ProductFormValues = {
   allowCustomMessage: false,
   customizationFields: [],
 };
+
+// Telefon fotoğrafları genelde 8-15MB olabiliyor; sunucunun kabul ettiği veri
+// boyutunu aşmamak için görseli tarayıcıda otomatik olarak küçültüp
+// sıkıştırıyoruz (en uzun kenar 1600px, JPEG %82 kalite — gözle fark
+// edilmeyecek kadar hafif bir kayıpla dosya boyutu genelde %90+ küçülür).
+function compressImageToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const img = new window.Image();
+
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+        if (width > height) {
+          height = Math.round((height * MAX_DIMENSION) / width);
+          width = MAX_DIMENSION;
+        } else {
+          width = Math.round((width * MAX_DIMENSION) / height);
+          height = MAX_DIMENSION;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error("Canvas desteklenmiyor"));
+        return;
+      }
+      ctx.drawImage(img, 0, 0, width, height);
+      URL.revokeObjectURL(objectUrl);
+      resolve(canvas.toDataURL("image/jpeg", JPEG_QUALITY));
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Görsel okunamadı"));
+    };
+    img.src = objectUrl;
+  });
+}
 
 export default function ProductForm({
   initialValues,
@@ -49,6 +95,7 @@ export default function ProductForm({
     ...initialValues,
   });
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
   function updateField<K extends keyof ProductFormValues>(key: K, value: ProductFormValues[K]) {
@@ -61,12 +108,45 @@ export default function ProductForm({
     updateField("images", next);
   }
 
-  function addImageField() {
+  function addImageUrlField() {
+    if (values.images.length >= MAX_IMAGES) return;
     updateField("images", [...values.images, ""]);
   }
 
   function removeImageField(index: number) {
     updateField("images", values.images.filter((_, i) => i !== index));
+  }
+
+  async function handleFileUpload(fileList: FileList | null) {
+    if (!fileList || fileList.length === 0) return;
+    setError("");
+    setUploading(true);
+
+    const remainingSlots = MAX_IMAGES - values.images.length;
+    const files = Array.from(fileList).slice(0, remainingSlots);
+    const newImages: string[] = [];
+
+    for (const file of files) {
+      if (!file.type.startsWith("image/")) {
+        setError(`"${file.name}" bir görsel dosyası değil, atlandı.`);
+        continue;
+      }
+      if (file.size > MAX_SOURCE_FILE_SIZE) {
+        setError(`"${file.name}" çok büyük (20MB üzeri), eklenemedi.`);
+        continue;
+      }
+      try {
+        const dataUrl = await compressImageToDataUrl(file);
+        newImages.push(dataUrl);
+      } catch {
+        setError(`"${file.name}" yüklenirken bir hata oluştu.`);
+      }
+    }
+
+    if (newImages.length > 0) {
+      updateField("images", [...values.images, ...newImages]);
+    }
+    setUploading(false);
   }
 
   function addCustomizationField() {
@@ -96,12 +176,16 @@ export default function ProductForm({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+
+    const cleanedImages = values.images.filter((i) => i.trim() !== "");
+    if (cleanedImages.length === 0) {
+      setError("En az bir fotoğraf eklemelisiniz (URL veya bilgisayarınızdan yükleyerek).");
+      return;
+    }
+
     setSaving(true);
 
-    const payload = {
-      ...values,
-      images: values.images.filter((i) => i.trim() !== ""),
-    };
+    const payload = { ...values, images: cleanedImages };
 
     const res = await fetch(submitUrl, {
       method,
@@ -112,6 +196,10 @@ export default function ProductForm({
     setSaving(false);
 
     if (!res.ok) {
+      if (res.status === 413) {
+        setError("Toplam fotoğraf boyutu çok büyük. Lütfen fotoğraf sayısını azaltın ve tekrar deneyin.");
+        return;
+      }
       const data = await res.json().catch(() => ({}));
       setError(data.error ?? "Kaydedilirken bir hata oluştu.");
       return;
@@ -159,34 +247,69 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label className="text-sm text-neutral-400 block mb-1">Fotoğraf URL&apos;leri</label>
-        {values.images.map((img, i) => (
-          <div key={i} className="flex gap-2 mb-2">
-            <input
-              value={img}
-              onChange={(e) => updateImage(i, e.target.value)}
-              placeholder="https://..."
-              className="flex-1 border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400"
-            />
+        <label className="text-sm text-neutral-400 block mb-2">
+          Fotoğraflar ({values.images.length}/{MAX_IMAGES})
+        </label>
+
+        {values.images.length > 0 && (
+          <div className="space-y-2 mb-3">
+            {values.images.map((img, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <div className="w-12 h-12 rounded-lg overflow-hidden bg-neutral-800 border border-white/10 shrink-0">
+                  {img && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  )}
+                </div>
+                <input
+                  value={img.startsWith("data:") ? "Bilgisayardan yüklendi" : img}
+                  onChange={(e) => updateImage(i, e.target.value)}
+                  disabled={img.startsWith("data:")}
+                  placeholder="https://..."
+                  className="flex-1 border border-white/15 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400 disabled:text-neutral-500"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImageField(i)}
+                  className="text-neutral-400 hover:text-rose-500 px-2 shrink-0"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {values.images.length < MAX_IMAGES && (
+          <div className="flex flex-wrap gap-3">
+            <label className="flex items-center gap-2 text-sm bg-neutral-800 hover:bg-neutral-700 text-white px-4 py-2 rounded-lg cursor-pointer transition-colors">
+              <Upload size={14} />
+              {uploading ? "Yükleniyor..." : "Bilgisayardan Yükle"}
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                disabled={uploading}
+                className="hidden"
+                onChange={(e) => {
+                  handleFileUpload(e.target.files);
+                  e.target.value = "";
+                }}
+              />
+            </label>
             <button
               type="button"
-              onClick={() => removeImageField(i)}
-              className="text-neutral-400 hover:text-rose-500 px-2"
+              onClick={addImageUrlField}
+              className="flex items-center gap-1 text-sm text-amber-400 hover:underline px-2"
             >
-              <X size={18} />
+              <Plus size={14} /> Veya URL ile ekle
             </button>
           </div>
-        ))}
-        <button
-          type="button"
-          onClick={addImageField}
-          className="text-sm text-amber-400 hover:underline flex items-center gap-1"
-        >
-          <Plus size={14} /> Fotoğraf ekle
-        </button>
-        <p className="text-xs text-neutral-400 mt-1">
-          Şimdilik fotoğraflar URL olarak eklenir. Bilgisayarınızdan doğrudan yükleme
-          bir sonraki aşamada eklenebilir.
+        )}
+        <p className="text-xs text-neutral-400 mt-2">
+          Bilgisayarınızdan en fazla {MAX_IMAGES} fotoğraf yükleyebilirsiniz. Telefon
+          fotoğrafları dahil büyük dosyalar otomatik olarak optimize edilir, ayrıca
+          küçültmenize gerek yok. İsterseniz internetteki bir görselin linkini de girebilirsiniz.
         </p>
       </div>
 
@@ -279,7 +402,7 @@ export default function ProductForm({
         </label>
       </div>
 
-      {error && <p className="text-sm text-rose-600">{error}</p>}
+      {error && <p className="text-sm text-rose-500">{error}</p>}
 
       <div className="flex gap-3">
         <button
