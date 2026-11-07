@@ -1,1 +1,0 @@
-ALTER TABLE "custom_design_requests" ADD COLUMN "email" varchar(255);
