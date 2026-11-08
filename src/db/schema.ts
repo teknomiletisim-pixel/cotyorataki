@@ -139,6 +139,7 @@ export const customDesignRequests = pgTable("custom_design_requests", {
   userId: integer("user_id").references(() => users.id), // giriş yapmışsa doldurulur
   name: varchar("name", { length: 150 }).notNull(),
   phone: varchar("phone", { length: 30 }).notNull(),
+  email: varchar("email", { length: 255 }), // opsiyonel: durum/not bildirimleri için
   description: text("description").notNull(),
   // Küçük görsel/video dosyaları base64 olarak burada tutulur (harici depolama
   // servisi kurulana kadar geçici bir çözüm; her dosya makul boyutla sınırlıdır).

@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { orderItems, orders, products, settings, specialDays } from "@/db/schema";
 import { and, desc, eq } from "drizzle-orm";
+import { notifyAdmin } from "@/lib/email";
 import { DEFAULT_GOLD_PRICE_PER_GRAM } from "@/lib/pricing";
 
 interface IncomingItem {
@@ -139,6 +140,17 @@ export async function POST(req: Request) {
   // NOT: Lemonsqueezy ödeme entegrasyonu bir sonraki adımda burada
   // (checkout URL oluşturma) tetiklenecek. Şimdilik sipariş "beklemede"
   // ödeme durumuyla oluşturuluyor.
+
+  await notifyAdmin(
+    "Yeni sipariş alındı (ödeme bekleniyor)",
+    [
+      `Sipariş no: #${order.id}`,
+      `Müşteri: ${fullName} — ${phone}`,
+      `Tutar: ${totalAmount} TL`,
+      `Ürünler: ${resolvedItems.map((i) => `${i.quantity}x ${i.productName}`).join(", ")}`,
+    ],
+    "/admin/siparisler"
+  );
 
   return NextResponse.json({ orderId: order.id, totalAmount });
 }

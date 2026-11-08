@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { orders, ORDER_STATUSES, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { sendOrderStatusEmail } from "@/lib/email";
+import { sendOrderStatusEmail, type SendResult } from "@/lib/email";
 
 export async function PATCH(
   req: Request,
@@ -26,8 +26,8 @@ export async function PATCH(
     return NextResponse.json({ error: "Sipariş bulunamadı." }, { status: 404 });
   }
 
-  // Durum değiştiğinde müşteriye e-posta bildirimi gönder (best-effort;
-  // e-posta ayarlanmamışsa veya gönderim başarısız olursa işlem yine de tamamlanır).
+  // Durum değişince müşteriye e-posta; sonucu admin ekranında göstermek için geri döndürüyoruz.
+  let notification: SendResult = { sent: false, reason: "Siparişin bağlı olduğu müşteri hesabı bulunamadı." };
   if (updated.userId) {
     const [customer] = await db
       .select({ email: users.email, firstName: users.firstName })
@@ -36,14 +36,14 @@ export async function PATCH(
       .limit(1);
 
     if (customer?.email) {
-      await sendOrderStatusEmail({
+      notification = await sendOrderStatusEmail({
         to: customer.email,
         orderId: updated.id,
-        customerName: customer.firstName ?? updated.fullName,
+        customerName: customer.firstName || updated.fullName,
         status,
       });
     }
   }
 
-  return NextResponse.json(updated);
+  return NextResponse.json({ ...updated, notification });
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import NotificationNotice, { type Notification } from "@/components/admin/NotificationNotice";
 
 const STATUS_OPTIONS = ["Beklemede", "İnceleniyor", "Teklif Verildi", "Tamamlandı", "Reddedildi"];
 
@@ -14,6 +15,7 @@ interface CustomDesignRequest {
   id: number;
   name: string;
   phone: string;
+  email: string | null;
   description: string;
   media: MediaItem[];
   status: string;
@@ -26,6 +28,7 @@ export default function AdminCustomDesignPage() {
   const [loading, setLoading] = useState(true);
   const [noteDrafts, setNoteDrafts] = useState<Record<number, string>>({});
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
+  const [notice, setNotice] = useState<Notification | null>(null);
 
   function load() {
     fetch("/api/admin/custom-design-requests")
@@ -39,20 +42,24 @@ export default function AdminCustomDesignPage() {
   }, []);
 
   async function updateStatus(id: number, status: string) {
-    await fetch(`/api/admin/custom-design-requests/${id}`, {
+    const res = await fetch(`/api/admin/custom-design-requests/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
+    const data = await res.json().catch(() => null);
+    setNotice(data?.notification ?? null);
     load();
   }
 
   async function saveNote(id: number) {
-    await fetch(`/api/admin/custom-design-requests/${id}`, {
+    const res = await fetch(`/api/admin/custom-design-requests/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ adminNote: noteDrafts[id] ?? "" }),
     });
+    const data = await res.json().catch(() => null);
+    setNotice(data?.notification ?? null);
     load();
   }
 
@@ -65,6 +72,8 @@ export default function AdminCustomDesignPage() {
         Müşterilerin gönderdiği özel tasarım istekleri, fotoğraf/video ekleriyle burada listelenir.
       </p>
 
+      <NotificationNotice notice={notice} />
+
       {requests.length === 0 ? (
         <p className="text-neutral-400">Henüz talep bulunmuyor.</p>
       ) : (
@@ -75,7 +84,7 @@ export default function AdminCustomDesignPage() {
                 <div>
                   <p className="font-medium text-neutral-100">{r.name}</p>
                   <p className="text-xs text-neutral-400">
-                    {r.phone} · {new Date(r.createdAt).toLocaleDateString("tr-TR")}
+                    {r.phone} · {r.email ?? "e-posta yok (bildirim gitmez)"} · {new Date(r.createdAt).toLocaleDateString("tr-TR")}
                   </p>
                 </div>
                 <select

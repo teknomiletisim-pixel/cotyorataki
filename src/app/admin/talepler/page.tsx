@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import NotificationNotice, { type Notification } from "@/components/admin/NotificationNotice";
 
 const TYPE_LABELS: Record<string, string> = {
   iade: "İade",
@@ -27,6 +28,7 @@ export default function AdminServiceRequestsPage() {
   const [requests, setRequests] = useState<ServiceRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [noteDrafts, setNoteDrafts] = useState<Record<number, string>>({});
+  const [notice, setNotice] = useState<Notification | null>(null);
 
   function load() {
     fetch("/api/admin/service-requests")
@@ -40,20 +42,24 @@ export default function AdminServiceRequestsPage() {
   }, []);
 
   async function updateStatus(id: number, status: string) {
-    await fetch(`/api/admin/service-requests/${id}`, {
+    const res = await fetch(`/api/admin/service-requests/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
+    const data = await res.json().catch(() => null);
+    setNotice(data?.notification ?? null);
     load();
   }
 
   async function saveNote(id: number) {
-    await fetch(`/api/admin/service-requests/${id}`, {
+    const res = await fetch(`/api/admin/service-requests/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ adminNote: noteDrafts[id] ?? "" }),
     });
+    const data = await res.json().catch(() => null);
+    setNotice(data?.notification ?? null);
     load();
   }
 
@@ -63,8 +69,10 @@ export default function AdminServiceRequestsPage() {
     <div>
       <h1 className="font-serif text-2xl text-white mb-2">Değişim / İade / Garanti Talepleri</h1>
       <p className="text-sm text-neutral-400 mb-6">
-        Durumu değiştirdiğinizde müşteriye otomatik e-posta bildirimi gönderilir.
+        Durumu değiştirdiğinizde veya not kaydettiğinizde müşteriye otomatik e-posta bildirimi gönderilir.
       </p>
+
+      <NotificationNotice notice={notice} />
 
       {requests.length === 0 ? (
         <p className="text-neutral-400">Henüz talep bulunmuyor.</p>

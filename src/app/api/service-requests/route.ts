@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { orders, serviceRequests, SERVICE_REQUEST_TYPES } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
+import { notifyAdmin } from "@/lib/email";
 
 export async function GET() {
   const session = await auth();
@@ -64,6 +65,17 @@ export async function POST(req: Request) {
       contactPhone: contactPhone?.trim() || null,
     })
     .returning();
+
+  await notifyAdmin(
+    "Yeni iade/değişim/garanti talebi",
+    [
+      `Sipariş no: #${order.id}`,
+      `Tür: ${type}`,
+      `Müşteri: ${order.fullName} — ${contactPhone?.trim() || order.phone}`,
+      `Açıklama: ${reason.trim().slice(0, 500)}`,
+    ],
+    "/admin/talepler"
+  );
 
   return NextResponse.json(created);
 }

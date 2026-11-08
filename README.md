@@ -91,6 +91,20 @@ servise üye olmanıza gerek yok.
 Bu değerleri girmezseniz site normal çalışmaya devam eder, sadece e-posta
 bildirimleri gönderilmez.
 
+### Bildirimler kime gider?
+
+- **Müşteriye:** sipariş durumu değişince; iade/değişim/garanti ve özel tasarım taleplerinde durum değişince
+  **veya not kaydedilince**. (Özel tasarımda müşteri formda e-posta girdiyse veya giriş yaptıysa.)
+- **Size (yönetici):** yeni sipariş, ödeme alındı, yeni iade/değişim/garanti talebi, yeni özel tasarım talebi.
+  Adres olarak `ADMIN_EMAIL` kullanılır (yoksa `EMAIL_USER`).
+- Yönetim Paneli > **E-posta Ayarları** sayfasından ayarların tanımlı olup olmadığını görebilir ve
+  **test e-postası** gönderebilirsiniz; gönderim başarısızsa gerçek hata nedeni orada görünür.
+
+**Önemli:** Bilgisayarınızdaki `.env.local` sadece yerel çalışma içindir. Canlı site (cotyorataki.com)
+`EMAIL_USER`, `EMAIL_PASSWORD`, `EMAIL_FROM` ve `ADMIN_EMAIL` değerlerini **Vercel > Settings >
+Environment Variables** içinden okur. Değişiklikten sonra mutlaka **Redeploy** yapın.
+
+
 ## 7) Google ile giriş (opsiyonel)
 
 Müşterilerinizin e-posta/şifre yerine Google hesaplarıyla tek tıkla giriş

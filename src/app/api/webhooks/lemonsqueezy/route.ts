@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { db } from "@/db";
 import { orders } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { notifyAdmin } from "@/lib/email";
 
 // Lemonsqueezy Webhook: https://docs.lemonsqueezy.com/help/webhooks
 // Mağaza panelinizde webhook URL'sini şu şekilde tanımlayın:
@@ -40,6 +41,10 @@ export async function POST(req: Request) {
         lemonsqueezyOrderId: String(payload?.data?.id ?? ""),
       })
       .where(eq(orders.id, Number(orderIdFromCustomData)));
+  }
+
+  if (eventName === "order_created" && orderIdFromCustomData && payload?.data?.attributes?.status === "paid") {
+    await notifyAdmin("Ödeme alındı", [`Sipariş no: #${orderIdFromCustomData}`], "/admin/siparisler");
   }
 
   if (eventName === "order_refunded" && orderIdFromCustomData) {

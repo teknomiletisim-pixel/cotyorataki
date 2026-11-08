@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { formatTRY } from "@/lib/pricing";
+import NotificationNotice, { type Notification } from "@/components/admin/NotificationNotice";
 
 const STATUS_OPTIONS = ["Beklemede", "Onaylandı", "Hazırlanıyor", "Yolda", "Teslim Edildi", "İptal Edildi"];
 
@@ -32,6 +33,7 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState<number | null>(null);
+  const [notice, setNotice] = useState<Notification | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/orders")
@@ -48,6 +50,8 @@ export default function AdminOrdersPage() {
       body: JSON.stringify({ status }),
     });
     if (res.ok) {
+      const data = await res.json();
+      setNotice(data.notification ?? null);
       setOrders((prev) => prev.map((o) => (o.id === orderId ? { ...o, status } : o)));
     }
     setUpdatingId(null);
@@ -58,6 +62,7 @@ export default function AdminOrdersPage() {
   return (
     <div>
       <h1 className="font-serif text-2xl text-white mb-6">Siparişler</h1>
+      <NotificationNotice notice={notice} />
 
       {orders.length === 0 ? (
         <p className="text-neutral-400">Henüz sipariş bulunmuyor.</p>

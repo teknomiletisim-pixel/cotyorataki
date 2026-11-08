@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { Upload, X, Check, Image as ImageIcon, Video as VideoIcon } from "lucide-react";
 
 interface MediaItem {
@@ -22,7 +23,15 @@ function fileToDataUrl(file: File): Promise<string> {
 }
 
 export default function OzelTasarimPage() {
-  const [form, setForm] = useState({ name: "", phone: "", description: "" });
+  const { data: session } = useSession();
+  const [form, setForm] = useState({ name: "", phone: "", email: "", description: "" });
+
+  // Giriş yapmış müşterinin e-postasını otomatik doldur
+  useEffect(() => {
+    if (session?.user?.email) {
+      setForm((f) => (f.email ? f : { ...f, email: session.user.email as string }));
+    }
+  }, [session]);
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -75,7 +84,7 @@ export default function OzelTasarimPage() {
     }
 
     setSuccess(true);
-    setForm({ name: "", phone: "", description: "" });
+    setForm({ name: "", phone: "", email: session?.user?.email ?? "", description: "" });
     setMedia([]);
   }
 
@@ -132,6 +141,20 @@ export default function OzelTasarimPage() {
                 className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="text-sm text-neutral-300 block mb-1">E-posta (opsiyonel)</label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+              placeholder="Talebinizle ilgili gelişmeleri e-postayla almak için"
+              className="w-full border border-white/15 rounded-lg px-3 py-2 outline-none focus:border-amber-400"
+            />
+            <p className="text-xs text-neutral-500 mt-1">
+              Girerseniz talebinizin durumu ve notlarımız bu adrese e-posta ile gönderilir.
+            </p>
           </div>
 
           <div>
