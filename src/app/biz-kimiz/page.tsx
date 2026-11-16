@@ -11,12 +11,12 @@ export default function Page() {
       <h1 className="font-serif text-3xl text-white mb-6">Biz Kimiz</h1>
       <div className="prose prose-neutral text-neutral-400 leading-relaxed space-y-4">
         <p>
-          [Buraya atölyenizin kuruluş hikayesini, kaç yıldır bu işi yaptığınızı,
-          neden bu işe başladığınızı yazabilirsiniz.]
+          Yaklaşık 20 yıl önce İstanbulda bir kuyumculuk işletmemiz vardı.Bu işletmemizi uzun süre boyunca kapattık.
+          2 yıl önce yeniden bi atölye açtık ve bu atölyeyi Ordu da şu an işletmeye devam ediyoruz. Tamamen kendi ve özel üretimlerimizi yapmaktayız.
         </p>
         <p>
-          [İkinci paragraf: üretim sürecinizden, kullandığınız malzemelerden
-          veya felsefenizden bahsedebilirsiniz.]
+          Hem tasarım hem üretim yapan Karadeniz'in tek işletmesiyiz .
+          Tasarım,model,kalıp,döküm,işleme ve diğer tüm işlemleri tüm ürünlerimiz için kendimiz yapmaktayız.
         </p>
       </div>
     </div>
