@@ -19,9 +19,9 @@ function InstagramIcon() {
 //   ayrı olarak "tel:" ile aranabilir bir link olarak gösterilir
 // ============================================================
 const SOCIAL_LINKS = {
-  instagram: "https://instagram.com/cotyora",
-  whatsapp: "https://wa.me/905000000000",
-  phone: "+90 500 000 00 00", // Görüntülenecek telefon numaranız
+  instagram: "https://www.instagram.com/cotyorataki/",
+  whatsapp: "https://wa.me/905446285252",
+  phone: "+90 544 628 52 52", // Görüntülenecek telefon numaranız
 };
 
 const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
