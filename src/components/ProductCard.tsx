@@ -8,8 +8,8 @@ import { useApp } from "@/context/AppContext";
 import { calculatePrice, formatTRY } from "@/lib/pricing";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { goldPricePerGram, isFavorite, toggleFavorite, activeSpecialDay } = useApp();
-  const basePrice = calculatePrice(product, goldPricePerGram);
+  const { metalPrices, isFavorite, toggleFavorite, activeSpecialDay } = useApp();
+  const basePrice = calculatePrice(product, metalPrices);
   const finalPrice = activeSpecialDay
     ? Math.round(basePrice * (1 - activeSpecialDay.discountRate))
     : basePrice;
@@ -48,7 +48,9 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         </div>
         <div className="p-4">
-          <p className="text-xs text-amber-400 font-medium">{product.category}</p>
+          <p className="text-xs text-amber-400 font-medium">
+            {product.category} · {product.material === "gumus" ? "Gümüş" : "Altın"}
+          </p>
           <h3 className="font-medium text-neutral-100 mt-1">{product.name}</h3>
           <div className="mt-2 flex items-center gap-2">
             {activeSpecialDay && (

@@ -20,6 +20,7 @@ export default function EditProductPage() {
             category: p.category as string,
             description: (p.description as string) ?? "",
             images: (p.images as string[]) ?? [""],
+            material: p.material === "gumus" ? "gumus" : "altin",
             goldGrams: Number(p.goldGrams),
             laborCost: p.laborCost as number,
             bestSeller: !!p.bestSeller,

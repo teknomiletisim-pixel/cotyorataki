@@ -8,10 +8,11 @@ import React, {
   useCallback,
 } from "react";
 import { CartItem, CartItemCustomization, Product, SpecialDay } from "@/lib/types";
-import { DEFAULT_GOLD_PRICE_PER_GRAM } from "@/lib/pricing";
+import { DEFAULT_GOLD_PRICE_PER_GRAM, DEFAULT_SILVER_PRICE_PER_GRAM, type MetalPrices } from "@/lib/pricing";
 
 interface AppContextValue {
   goldPricePerGram: number;
+  metalPrices: MetalPrices; // fiyat hesabı için: { gold, silver }
   products: Product[];
   productsLoading: boolean;
   getProductById: (id: number) => Product | undefined;
@@ -39,6 +40,7 @@ const STORAGE_KEYS = {
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [goldPricePerGram, setGoldPricePerGram] = useState(DEFAULT_GOLD_PRICE_PER_GRAM);
+  const [silverPricePerGram, setSilverPricePerGram] = useState(DEFAULT_SILVER_PRICE_PER_GRAM);
   const [products, setProducts] = useState<Product[]>([]);
   const [productsLoading, setProductsLoading] = useState(true);
   const [activeSpecialDay, setActiveSpecialDay] = useState<SpecialDay | null>(null);
@@ -59,6 +61,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             category: p.category as string,
             description: (p.description as string) ?? "",
             images: (p.images as string[]) ?? [],
+            material: p.material === "gumus" ? "gumus" : "altin",
             goldGrams: Number(p.goldGrams),
             laborCost: p.laborCost as number,
             bestSeller: !!p.bestSeller,
@@ -73,7 +76,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     fetch("/api/gold-price")
       .then((r) => r.json())
-      .then((d) => setGoldPricePerGram(d.pricePerGram))
+      .then((d) => {
+        setGoldPricePerGram(d.pricePerGram);
+        if (typeof d.silverPricePerGram === "number") setSilverPricePerGram(d.silverPricePerGram);
+      })
       .catch(() => {});
 
     fetch("/api/special-days")
@@ -162,6 +168,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     <AppContext.Provider
       value={{
         goldPricePerGram,
+        metalPrices: { gold: goldPricePerGram, silver: silverPricePerGram },
         products,
         productsLoading,
         getProductById,

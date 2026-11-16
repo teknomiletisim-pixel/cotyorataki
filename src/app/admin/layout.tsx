@@ -8,7 +8,7 @@ import { LayoutDashboard, Package, Coins, LogOut, Sparkles, MessageSquareWarning
 const NAV_ITEMS = [
   { href: "/admin/siparisler", label: "Siparişler", icon: LayoutDashboard },
   { href: "/admin/urunler", label: "Ürünler", icon: Package },
-  { href: "/admin/altin-fiyati", label: "Altın Fiyatı", icon: Coins },
+  { href: "/admin/altin-fiyati", label: "Altın / Gümüş Fiyatı", icon: Coins },
   { href: "/admin/ozel-gunler", label: "Özel Günler", icon: Sparkles },
   { href: "/admin/talepler", label: "Değişim/İade Talepleri", icon: MessageSquareWarning },
   { href: "/admin/ozel-tasarim-talepleri", label: "Özel Tasarım Talepleri", icon: Gem },

@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { orderItems, orders, products, settings, specialDays } from "@/db/schema";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { notifyAdmin } from "@/lib/email";
-import { DEFAULT_GOLD_PRICE_PER_GRAM } from "@/lib/pricing";
+import { DEFAULT_GOLD_PRICE_PER_GRAM, DEFAULT_SILVER_PRICE_PER_GRAM, calculatePrice, type MetalPrices } from "@/lib/pricing";
 
 interface IncomingItem {
   productId: number;
@@ -54,13 +54,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Eksik sipariş bilgisi." }, { status: 400 });
   }
 
-  // Güncel gram altın fiyatı - fiyat her zaman sunucu tarafında yeniden hesaplanır.
-  const [goldRow] = await db
+  // Güncel gram altın ve gümüş fiyatı - fiyat her zaman sunucu tarafında yeniden hesaplanır.
+  const priceRows = await db
     .select()
     .from(settings)
-    .where(eq(settings.key, "gold_price_per_gram"))
-    .limit(1);
-  const goldPricePerGram = goldRow ? Number(goldRow.value) : DEFAULT_GOLD_PRICE_PER_GRAM;
+    .where(inArray(settings.key, ["gold_price_per_gram", "silver_price_per_gram"]));
+  const goldRow = priceRows.find((r) => r.key === "gold_price_per_gram");
+  const silverRow = priceRows.find((r) => r.key === "silver_price_per_gram");
+  const metalPrices: MetalPrices = {
+    gold: goldRow ? Number(goldRow.value) : DEFAULT_GOLD_PRICE_PER_GRAM,
+    silver: silverRow ? Number(silverRow.value) : DEFAULT_SILVER_PRICE_PER_GRAM,
+  };
 
   const today = new Date();
   const todayMonth = today.getMonth() + 1;
@@ -90,7 +94,14 @@ export async function POST(req: Request) {
       .limit(1);
     if (!product) continue;
 
-    let unitPrice = Math.round(Number(product.goldGrams) * goldPricePerGram + product.laborCost);
+    let unitPrice = calculatePrice(
+      {
+        material: product.material === "gumus" ? "gumus" : "altin",
+        goldGrams: Number(product.goldGrams),
+        laborCost: product.laborCost,
+      },
+      metalPrices
+    );
     if (activeSpecialDay) {
       unitPrice = Math.round(unitPrice * (1 - discountRate));
     }

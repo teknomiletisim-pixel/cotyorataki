@@ -56,37 +56,60 @@ export default function HomePage() {
       {/* KATEGORİLER */}
       <section className="max-w-7xl mx-auto px-4 py-14">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {categoryTilesWithImages.map((tile) => (
-            <Link
-              key={tile.label}
-              href={tile.href}
-              className="group relative aspect-[3/4] rounded-xl overflow-hidden bg-neutral-900 border border-white/10 hover:border-amber-400/50 transition-colors"
-            >
-              {tile.image ? (
-                <Image
-                  src={tile.image}
-                  alt={tile.label}
-                  fill
-                  className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-300"
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-black" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          {categoryTilesWithImages.map((tile) => {
+            const material = tile.special ? null : tile;
+            return (
+              <div
+                key={tile.label}
+                className="group relative aspect-[3/4] rounded-xl overflow-hidden bg-neutral-900 border border-white/10 hover:border-amber-400/50 transition-colors"
+              >
+                {/* Kartın tamamı kategoriye (tüm malzemeler) gider */}
+                <Link href={tile.href} className="absolute inset-0" aria-label={`${tile.label} - tümü`}>
+                  {tile.image ? (
+                    <Image
+                      src={tile.image}
+                      alt={tile.label}
+                      fill
+                      className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-300"
+                      sizes="(max-width: 768px) 50vw, 20vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-black" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-              <span className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white group-hover:bg-amber-400 group-hover:text-black transition-colors">
-                <Plus size={14} />
-              </span>
+                  <span className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white group-hover:bg-amber-400 group-hover:text-black transition-colors">
+                    <Plus size={14} />
+                  </span>
 
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-white font-serif text-base sm:text-lg">{tile.label}</p>
-                <p className="text-amber-400/80 text-xs mt-0.5 flex items-center gap-1">
-                  İncele <span aria-hidden>→</span>
-                </p>
+                  <div className={`absolute left-4 right-4 ${material ? "bottom-12" : "bottom-4"}`}>
+                    <p className="text-white font-serif text-base sm:text-lg">{tile.label}</p>
+                    <p className="text-amber-400/80 text-xs mt-0.5 flex items-center gap-1">
+                      {material ? "Tümü" : "İncele"} <span aria-hidden>→</span>
+                    </p>
+                  </div>
+                </Link>
+
+                {/* Malzemeye göre kısayollar (kartın üstünde, ayrı bağlantılar) */}
+                {material && (
+                  <div className="absolute bottom-3 left-4 right-4 z-10 flex gap-2">
+                    <Link
+                      href={`${tile.href}&malzeme=altin`}
+                      className="flex-1 text-center text-[11px] font-medium py-1.5 rounded-full bg-amber-400 text-black hover:bg-amber-300 transition-colors"
+                    >
+                      Altın
+                    </Link>
+                    <Link
+                      href={`${tile.href}&malzeme=gumus`}
+                      className="flex-1 text-center text-[11px] font-medium py-1.5 rounded-full bg-neutral-200 text-black hover:bg-white transition-colors"
+                    >
+                      Gümüş
+                    </Link>
+                  </div>
+                )}
               </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 

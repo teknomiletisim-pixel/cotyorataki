@@ -8,12 +8,12 @@ import { calculatePrice, formatTRY } from "@/lib/pricing";
 import OrderStatusBadge from "@/components/OrderStatusBadge";
 
 export default function CartPage() {
-  const { cart, removeFromCart, goldPricePerGram, getProductById, productsLoading } = useApp();
+  const { cart, removeFromCart, metalPrices, getProductById, productsLoading } = useApp();
 
   const total = cart.reduce((sum, item) => {
     const product = getProductById(item.productId);
     if (!product) return sum;
-    return sum + calculatePrice(product, goldPricePerGram) * item.quantity;
+    return sum + calculatePrice(product, metalPrices) * item.quantity;
   }, 0);
 
   if (productsLoading) {
@@ -40,7 +40,7 @@ export default function CartPage() {
         {cart.map((item, index) => {
           const product = getProductById(item.productId);
           if (!product) return null;
-          const price = calculatePrice(product, goldPricePerGram) * item.quantity;
+          const price = calculatePrice(product, metalPrices) * item.quantity;
 
           return (
             <div key={index} className="flex gap-4 bg-neutral-900 border border-white/10 rounded-xl p-4">

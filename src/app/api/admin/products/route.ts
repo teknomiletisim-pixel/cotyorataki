@@ -29,6 +29,7 @@ export async function POST(req: Request) {
     category,
     description,
     images,
+    material,
     goldGrams,
     laborCost,
     bestSeller,
@@ -40,6 +41,7 @@ export async function POST(req: Request) {
     category: string;
     description?: string;
     images: string[];
+    material?: string;
     goldGrams: number;
     laborCost: number;
     bestSeller?: boolean;
@@ -63,6 +65,7 @@ export async function POST(req: Request) {
       category,
       description: description ?? "",
       images,
+      material: material === "gumus" ? "gumus" : "altin",
       goldGrams: String(goldGrams),
       laborCost,
       bestSeller: !!bestSeller,

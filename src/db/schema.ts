@@ -33,6 +33,9 @@ export const products = pgTable("products", {
   category: varchar("category", { length: 50 }).notNull(), // Yüzük | Kolye | Bileklik | Küpe | Set
   description: text("description").default(""),
   images: jsonb("images").$type<string[]>().notNull().default([]),
+  // Ürünün malzemesi: 'altin' | 'gumus'. Fiyat, seçilen malzemenin güncel gram fiyatıyla hesaplanır.
+  material: varchar("material", { length: 10 }).notNull().default("altin"),
+  // NOT: Sütun adı eski kalmıştır; artık "gram metal miktarı" (altın veya gümüş) anlamına gelir.
   goldGrams: numeric("gold_grams", { precision: 10, scale: 3 }).notNull(),
   laborCost: integer("labor_cost").notNull(), // TRY, sabit işçilik bedeli
   bestSeller: boolean("best_seller").notNull().default(false),

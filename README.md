@@ -132,7 +132,25 @@ belirir.
 **Not:** Kendi admin e-postanızla (`ADMIN_EMAIL`) Google üzerinden giriş
 yaparsanız da otomatik olarak Yönetim Paneli'ne yönlendirilirsiniz.
 
-## 8) Altın fiyatı mantığı
+## 8) Altın / gümüş fiyat mantığı
+
+Her ürünün bir **malzemesi** vardır (Altın veya Gümüş; ürün ekleme/düzenleme sayfasından seçilir).
+Fiyat şu formülle hesaplanır:
+
+```
+fiyat = (gram metal miktarı × o malzemenin güncel gram fiyatı) + işçilik bedeli
+```
+
+Yönetim Paneli > **Altın / Gümüş Fiyatı** sayfasından gram altın ve gram gümüş fiyatını **ayrı ayrı** girersiniz.
+Birini değiştirmek yalnızca o malzemedeki ürünlerin fiyatını etkiler.
+
+Katalogda müşteriler malzeme (Altın/Gümüş) ve kategoriyi birlikte seçebilir
+(örn. altın yüzük, gümüş kolye). Ana sayfadaki kategori kartlarında da Altın/Gümüş kısayolları vardır.
+
+**Önemli:** Mevcut ürünler Altın olarak kabul edilir. Gümüş olan ürünlerin malzemesini elle "Gümüş" yapın.
+Gram gümüş fiyatı girilene kadar geçici bir başlangıç değeri (60 TL) kullanılır.
+
+### Eski not (yalnızca altın)
 
 Her ürünün fiyatı şu formülle hesaplanır:
 

@@ -8,7 +8,7 @@ import { calculatePrice, formatTRY } from "@/lib/pricing";
 
 export default function CheckoutPage() {
   const { status } = useSession();
-  const { cart, goldPricePerGram, getProductById, clearCart, productsLoading } = useApp();
+  const { cart, metalPrices, getProductById, clearCart, productsLoading } = useApp();
   const router = useRouter();
   const [form, setForm] = useState({
     fullName: "",
@@ -28,7 +28,7 @@ export default function CheckoutPage() {
   const total = cart.reduce((sum, item) => {
     const product = getProductById(item.productId);
     if (!product) return sum;
-    return sum + calculatePrice(product, goldPricePerGram) * item.quantity;
+    return sum + calculatePrice(product, metalPrices) * item.quantity;
   }, 0);
 
   async function handleSubmit(e: React.FormEvent) {

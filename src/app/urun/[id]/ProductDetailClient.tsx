@@ -10,7 +10,7 @@ import { useApp } from "@/context/AppContext";
 export default function ProductDetailClient() {
   const params = useParams<{ id: string }>(); // route segmenti "id" ama içerik slug
   const router = useRouter();
-  const { products, productsLoading, goldPricePerGram, isFavorite, toggleFavorite, addToCart, activeSpecialDay } = useApp();
+  const { products, productsLoading, metalPrices, isFavorite, toggleFavorite, addToCart, activeSpecialDay } = useApp();
   const product = products.find((p) => p.slug === params.id);
 
   const [activeImage, setActiveImage] = useState(0);
@@ -30,7 +30,7 @@ export default function ProductDetailClient() {
     );
   }
 
-  const basePrice = calculatePrice(product, goldPricePerGram);
+  const basePrice = calculatePrice(product, metalPrices);
   const finalPrice = activeSpecialDay
     ? Math.round(basePrice * (1 - activeSpecialDay.discountRate))
     : basePrice;
@@ -75,7 +75,7 @@ export default function ProductDetailClient() {
 
       {/* DETAY */}
       <div>
-        <p className="text-xs text-amber-600 font-medium">{product.category}</p>
+        <p className="text-xs text-amber-600 font-medium">{product.category} · {product.material === "gumus" ? "Gümüş" : "Altın"}</p>
         <div className="flex items-start justify-between gap-4 mt-1">
           <h1 className="font-serif text-3xl text-white">{product.name}</h1>
           <button

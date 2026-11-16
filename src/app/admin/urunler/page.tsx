@@ -11,6 +11,7 @@ interface AdminProduct {
   name: string;
   category: string;
   images: string[];
+  material: string;
   goldGrams: string;
   laborCost: number;
   bestSeller: boolean;
@@ -73,7 +74,7 @@ export default function AdminProductsPage() {
             <div className="flex-1 min-w-0">
               <p className="font-medium text-neutral-100 truncate">{p.name}</p>
               <p className="text-xs text-neutral-400">
-                {p.category} · {p.goldGrams} gr altın + {p.laborCost} TL işçilik
+                {p.category} · {p.material === "gumus" ? "Gümüş" : "Altın"} · {p.goldGrams} gr + {p.laborCost} TL işçilik
                 {p.bestSeller && " · Çok Satan"}
                 {!p.active && " · Pasif"}
               </p>

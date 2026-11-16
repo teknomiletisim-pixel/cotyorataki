@@ -6,6 +6,8 @@ export interface CustomizationField {
   placeholder?: string;
 }
 
+export type Material = "altin" | "gumus";
+
 export interface Product {
   id: number;
   slug: string;
@@ -13,7 +15,8 @@ export interface Product {
   category: Category | string;
   description: string;
   images: string[];
-  goldGrams: number; // ürünün gram altın karşılığı
+  material: Material; // altın veya gümüş
+  goldGrams: number; // ürünün gram metal miktarı (altın ya da gümüş)
   laborCost: number; // işçilik + tasarım bedeli (TRY, sabit)
   bestSeller?: boolean;
   isNew?: boolean;

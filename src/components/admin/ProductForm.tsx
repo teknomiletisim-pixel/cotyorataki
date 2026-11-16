@@ -15,6 +15,7 @@ export interface ProductFormValues {
   category: string;
   description: string;
   images: string[];
+  material: "altin" | "gumus";
   goldGrams: number;
   laborCost: number;
   bestSeller: boolean;
@@ -28,6 +29,7 @@ const EMPTY_VALUES: ProductFormValues = {
   category: "Yüzük",
   description: "",
   images: [],
+  material: "altin",
   goldGrams: 1,
   laborCost: 0,
   bestSeller: false,
@@ -237,6 +239,29 @@ export default function ProductForm({
       </div>
 
       <div>
+        <label className="text-sm text-neutral-400 block mb-1">Malzeme</label>
+        <div className="flex gap-2">
+          {([
+            ["altin", "Altın"],
+            ["gumus", "Gümüş"],
+          ] as const).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => updateField("material", value)}
+              className={`flex-1 py-2 rounded-lg border text-sm font-medium transition-colors ${
+                values.material === value
+                  ? "border-amber-400 bg-amber-400/10 text-amber-300"
+                  : "border-white/15 text-neutral-400 hover:border-white/30"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
         <label className="text-sm text-neutral-400 block mb-1">Açıklama</label>
         <textarea
           rows={3}
@@ -315,7 +340,9 @@ export default function ProductForm({
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-sm text-neutral-400 block mb-1">Gram Altın Miktarı</label>
+          <label className="text-sm text-neutral-400 block mb-1">
+            Gram {values.material === "gumus" ? "Gümüş" : "Altın"} Miktarı
+          </label>
           <input
             type="number"
             step="0.01"
@@ -337,8 +364,9 @@ export default function ProductForm({
         </div>
       </div>
       <p className="text-xs text-neutral-400 -mt-3">
-        Satış fiyatı = (gram altın miktarı × güncel gram altın fiyatı) + işçilik bedeli.
-        Altın fiyatı değiştiğinde bu ürünün fiyatı otomatik güncellenir.
+        Satış fiyatı = (gram {values.material === "gumus" ? "gümüş" : "altın"} miktarı × güncel gram{" "}
+        {values.material === "gumus" ? "gümüş" : "altın"} fiyatı) + işçilik bedeli.
+        {values.material === "gumus" ? " Gümüş" : " Altın"} fiyatı değiştiğinde bu ürünün fiyatı otomatik güncellenir.
       </p>
 
       <div>

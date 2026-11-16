@@ -14,6 +14,7 @@ export async function PATCH(
     category,
     description,
     images,
+    material,
     goldGrams,
     laborCost,
     bestSeller,
@@ -26,6 +27,7 @@ export async function PATCH(
     category: string;
     description: string;
     images: string[];
+    material: string;
     goldGrams: number;
     laborCost: number;
     bestSeller: boolean;
@@ -40,6 +42,7 @@ export async function PATCH(
   if (category !== undefined) updateValues.category = category;
   if (description !== undefined) updateValues.description = description;
   if (images !== undefined) updateValues.images = images;
+  if (material !== undefined) updateValues.material = material === "gumus" ? "gumus" : "altin";
   if (goldGrams !== undefined) updateValues.goldGrams = String(goldGrams);
   if (laborCost !== undefined) updateValues.laborCost = laborCost;
   if (bestSeller !== undefined) updateValues.bestSeller = bestSeller;

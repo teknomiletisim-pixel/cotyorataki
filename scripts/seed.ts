@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { db } from "../src/db";
 import { products, settings, users } from "../src/db/schema";
 import { products as sampleProducts } from "../src/lib/products";
-import { DEFAULT_GOLD_PRICE_PER_GRAM } from "../src/lib/pricing";
+import { DEFAULT_GOLD_PRICE_PER_GRAM, DEFAULT_SILVER_PRICE_PER_GRAM } from "../src/lib/pricing";
 
 async function main() {
   console.log("Seed başlıyor...");
@@ -37,6 +37,12 @@ async function main() {
     .values({ key: "gold_price_per_gram", value: String(DEFAULT_GOLD_PRICE_PER_GRAM) })
     .onConflictDoNothing({ target: settings.key });
   console.log("Gram altın fiyatı ayarı eklendi.");
+
+  await db
+    .insert(settings)
+    .values({ key: "silver_price_per_gram", value: String(DEFAULT_SILVER_PRICE_PER_GRAM) })
+    .onConflictDoNothing({ target: settings.key });
+  console.log("Gram gümüş fiyatı ayarı eklendi.");
 
   // 3) Admin hesabı (.env.local içindeki ADMIN_EMAIL / ADMIN_PASSWORD ile)
   const adminEmail = process.env.ADMIN_EMAIL;

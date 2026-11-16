@@ -9,7 +9,7 @@ import { calculatePrice, formatTRY } from "@/lib/pricing";
 // görsel + güncel fiyat bilgisiyle listeler. Yeni ürün ekledikçe veya
 // düzenledikçe burası da otomatik güncellenir, ayrıca bir şey yapmanıza gerek yok.
 export default function BlogPage() {
-  const { products, productsLoading, goldPricePerGram, activeSpecialDay } = useApp();
+  const { products, productsLoading, metalPrices, activeSpecialDay } = useApp();
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-14">
@@ -23,7 +23,7 @@ export default function BlogPage() {
       ) : (
         <div className="space-y-10">
           {products.map((p) => {
-            const basePrice = calculatePrice(p, goldPricePerGram);
+            const basePrice = calculatePrice(p, metalPrices);
             const price = activeSpecialDay
               ? Math.round(basePrice * (1 - activeSpecialDay.discountRate))
               : basePrice;
